@@ -1,3 +1,4 @@
+return({
 game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">Starting BinisJ Nigga</font>")
 
 --[[
@@ -6413,3 +6414,4 @@ DMM = Scripts:CreateButton({
 })
 
 game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">Welcome to BinisJ Nigga</font>")
+})
