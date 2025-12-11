@@ -515,6 +515,75 @@ else
 				if WSE then
 					model:WaitForChild("HumanoidCreature").WalkSpeed = WS * 20
 				end
+			elseif model.Name == "ToolPencil" then
+				local prt = Instance.new("Part")
+				prt.Name = "PenisPart"
+				prt.Parent = model
+				prt.CFrame = bill.CFrame + (bill.CFrame.RightVector * 2.193)
+				prt.Rotation += Vector3.new(0, 0, 270)
+				prt.Transparency = 1
+				prt.CanCollide = false
+				prt.CanQuery = false
+				prt.CanTouch = false
+				prt.Size = Vector3.new(0.5,0.5,0.5)
+
+				local wc = Instance.new("WeldConstraint")
+				wc.Parent = prt
+				wc.Part0 = bill
+				wc.Part1 = prt
+
+				local pe = Instance.new("ParticleEmitter")
+				pe.Parent = prt
+				pe.SpreadAngle = Vector2.new(10,10)
+				pe.Texture = "rbxassetid://120974828567943"
+				pe.Rate = 100
+				pe.Speed = NumberRange.new(25,25)
+				pe.Lifetime = NumberRange.new(0.25,0.5)
+				local numberSequence = NumberSequence.new{
+					NumberSequenceKeypoint.new(0, 0),
+					NumberSequenceKeypoint.new(1, 1),
+				}
+				pe.Transparency = numberSequence
+				numberSequence = NumberSequence.new{
+					NumberSequenceKeypoint.new(0, 0.5),
+					NumberSequenceKeypoint.new(1, 0.5),
+				}
+				pe.Size = numberSequence
+
+				for _,prt in pairs(model:GetChildren()) do
+					if prt:IsA("BasePart") then
+						prt.CanQuery = false
+						prt.CanTouch = false
+					end
+				end
+			elseif model.Name == "NinjaKunai" then
+				local bbg = Instance.new("BillboardGui")
+				bbg.Parent = model
+				bbg.Size = UDim2.new(1, 0, 1, 0)
+				bbg.Adornee = model
+
+				local bbl = Instance.new("ImageLabel")
+				bbl.Parent = bbg
+				bbl.BackgroundTransparency = 1
+				bbl.Size = UDim2.new(1, 0, 1, 0)
+				bbl.Position = UDim2.new(0, 0, 0, 0)
+				bbl.AnchorPoint = Vector2.new(0.5, 0.5)
+				bbl.Position = UDim2.new(0.5, 0, 0.5, 0)
+
+				local constraint = Instance.new("UIAspectRatioConstraint")
+				constraint.AspectRatio = 1
+				constraint.Parent = bbl
+				bbl.Image = 'rbxassetid://120974828567943'
+
+				task.wait()
+
+				for _,prt in pairs(model:GetChildren()) do
+					if prt:IsA("BasePart") then
+						prt.CanQuery = false
+						prt.CanTouch = false
+						prt.Transparency = 1
+					end
+				end
 			elseif model.Name == "BallMagicLight" and bonerenabled then
 				Boner(model)
 			elseif model.Name == "BombMissile" or model.Name == "BallSnowball" or model.Name == "BombDarkMatter" or model.Name == "BombBalloon" then
@@ -1000,6 +1069,7 @@ else
 						end)
 						local function FloatPadLoop()
 							if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild('CreativeFlyPart') and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and flying then
+								Float.Transparency = 1
 								FloatValue = 3.1
 								if uppies then
 									if not downies then
