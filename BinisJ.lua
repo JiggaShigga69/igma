@@ -1128,6 +1128,10 @@ else
 	})
 
 	local already = false
+	local AKT
+	local APT
+	local AKE
+	local APKE
 
 	cloneref(game.Players.LocalPlayer:GetMouse()).KeyDown:Connect(function(KEYY)
 		if KEYY == ' ' then
@@ -1176,6 +1180,9 @@ else
 						end)
 						local function FloatPadLoop()
 							if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild('CreativeFlyPart') and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and flying then
+								if not AKE and not APKE then
+									APT:Set(true)
+								end
 								game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS * 16 * 10
 								Float.Transparency = 1
 								FloatValue = 3.1
@@ -1203,7 +1210,6 @@ else
 								Float:Destroy()
 								Up:Disconnect()
 								Down:Disconnect()
-
 							end
 						end
 						game.Players.LocalPlayer.Character.Humanoid.JumpHeight = 0
@@ -1309,13 +1315,11 @@ else
 		end,
 	})
 
-	local AKT
-	local APT
-
 	AKT = AS:AddToggle({
 		Name = "Anti-Kick",
 		Default = false,
 		Callback = function(Value)
+			AKE = Value
 			if Value then
 				table.insert(AKList,game.Players.LocalPlayer.Name)
 				APT:Set(false)
@@ -1336,6 +1340,7 @@ else
 		Name = "Penis Anti-Kick",
 		Default = false,
 		Callback = function(Value)
+			APKE = Value
 			if Value then
 				table.insert(PenisList,game.Players.LocalPlayer.Name)
 				AKT:Set(false)
