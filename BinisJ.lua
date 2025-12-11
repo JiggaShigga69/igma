@@ -1194,7 +1194,7 @@ else
 									Float.CanCollide = false
 									game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
 								else
-									float.CanCollide = true
+									Float.CanCollide = true
 									game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = false
 								end
 							else
