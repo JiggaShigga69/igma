@@ -448,6 +448,8 @@ else
 	local penis
 	local penis2
 
+	local DSL = true
+
 	if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
 		penis = game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("Sit"):Connect(function()
 			if not game.Players.LocalPlayer.Character.Humanoid.SeatPart and AXE then
@@ -475,7 +477,9 @@ else
 			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS * 16 * nigger
 		end)
 		b.WalkSpeed = WS
-		game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(SL)
+		if DSL then
+			game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(SL)
+		end
 	end)
 
 	task.spawn(function()
@@ -1186,6 +1190,13 @@ else
 								end
 								Value = FloatValue + game.Players.LocalPlayer.Character.Humanoid.HipHeight
 								Float.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame - Vector3.new(0,Value,0)
+								if game.Players.LocalPlayer.Character.Humanoid.Sit then
+									Float.CanCollide = false
+									game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
+								else
+									float.CanCollide = true
+									game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = false
+								end
 							else
 								flying = false
 								FloatingFunc:Disconnect()
@@ -1355,8 +1366,10 @@ else
 							if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame.Position.Magnitude > 10000000 then
 								if SL ~= 'off' then
 									game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(SL)
+									game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").AssemblyLinearVelocity = Vector3.new(0,0,0)
 								else
 									game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(0,-10,0)
+									game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").AssemblyLinearVelocity = Vector3.new(0,0,0)
 								end
 							end
 						end
@@ -1634,6 +1647,9 @@ else
 						gotsomeone = true
 						continue = false
 						if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+							if plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude > 5000 then
+								continue = false
+							end
 							if plr.Character.HumanoidRootPart.Massless then
 								if plr.Character.Humanoid.SeatPart then
 									continue = true
@@ -1654,7 +1670,7 @@ else
 								end
 							end
 							local timee = tick()
-							while tick() - timee < 0.25 and plr and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") do
+							while tick() - timee < 0.25 and plr and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") and continue do
 								game:GetService("ReplicatedStorage").GrabEvents.SetNetworkOwner:FireServer(plr.Character.HumanoidRootPart,plr.Character.HumanoidRootPart.CFrame)
 								task.wait(0.05)
 							end
@@ -1881,7 +1897,7 @@ else
 			task.wait(0.75)
 			if plr.Character and plr.Character:FindFirstChild("Torso") then
 				if plr.Character.Parent == workspace and diddle:FindFirstChild("StickyPart") then 
-					game.ReplicatedStorage.PlayerEvents.StickyPartEvent:FireServer(diddle.StickyPart,plr.Character.Torso,CFrame.new(0,-1,0.3) * CFrame.Angles(0,math.pi,0))
+					game.ReplicatedStorage.PlayerEvents.StickyPartEvent:FireServer(diddle.StickyPart,plr.Character.Torso,CFrame.new(0,-1,0) * CFrame.Angles(0,math.pi,0))
 				else
 					game.ReplicatedStorage.MenuToys.DestroyToy:FireServer(diddle)
 				end
@@ -3029,20 +3045,7 @@ else
 		Default = true,
 		Callback = function(Value)
 			SLEE = Value
-			if not Value then
-				SL = 'off'
-			end
-		end    
-	})
-
-	local TSPMO = TS:AddDropdown({
-		Name = "Spawn Location",
-		Default = "Spawn",
-		Options = locations,
-		Callback = function(itm)
-			if SLEE then
-				SL = tpland[itm]
-			end
+			DSL = Value
 		end    
 	})
 
@@ -3069,62 +3072,91 @@ else
 	local mobject = nil
 	local diddyplr = nil
 
-	game:GetService("RunService").RenderStepped:Connect(function()
-		local hrp = nil
-		if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-			hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-		end
-		if lookforplrs and not lockedplr then
-			mpoint = game.Players.LocalPlayer:GetMouse().Hit.Position
-			mobject = game.Players.LocalPlayer:GetMouse().Target
-			if mobject then
-				diddyplr = game.Players:GetPlayerFromCharacter(mobject:FindFirstAncestorWhichIsA("Model"))
-			end
-			if diddyplr then
-				lockedplr = diddyplr
-				lookforplrs = false
-			end
-		else
-			mpoint = Vector3.new(0,0,0)
-			mobject = nil
-			diddyplr = nil
-		end
-		if hrp then
-			if mobject then
-				if holdingthatschlong then
-					hrp.AssemblyLinearVelocity = mobject.AssemblyLinearVelocity
-				end
-			end
+	task.spawn(function()
+		while true do
+			local hrp = nil
 			if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-				if holdingthatschlong then
-					local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-					hrp.CFrame = (hrp.CFrame - hrp.CFrame.Position) + game.Players.LocalPlayer:GetMouse().Hit.Position
-					holdingthatschlong = false
+				hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+			end
+			if lookforplrs and not lockedplr then
+				mpoint = game.Players.LocalPlayer:GetMouse().Hit.Position
+				mobject = game.Players.LocalPlayer:GetMouse().Target
+				if mobject then
+					diddyplr = game.Players:GetPlayerFromCharacter(mobject:FindFirstAncestorWhichIsA("Model"))
+				end
+				if diddyplr then
+					lockedplr = diddyplr
+					lookforplrs = false
+				end
+			else
+				mpoint = Vector3.new(0,0,0)
+				mobject = nil
+				diddyplr = nil
+			end
+			if hrp then
+				if mobject then
+					if holdingthatschlong then
+						hrp.AssemblyLinearVelocity = mobject.AssemblyLinearVelocity
+					end
+				end
+				if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+					if holdingthatschlong then
+						local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+						hrp.CFrame = (hrp.CFrame - hrp.CFrame.Position) + game.Players.LocalPlayer:GetMouse().Hit.Position
+						holdingthatschlong = false
+					end
 				end
 			end
-		end
-		if lockedplr and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and lockedplr.Character and lockedplr.Character:FindFirstChild("HumanoidRootPart") then
-			local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-			local hrpp = lockedplr.Character.HumanoidRootPart
-			hrp.CFrame = (hrp.CFrame - hrp.CFrame.Position) + hrpp.CFrame.Position
-			hrp.AssemblyLinearVelocity = hrpp.AssemblyLinearVelocity
+			if lockedplr and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and lockedplr.Character and lockedplr.Character:FindFirstChild("HumanoidRootPart") then
+				local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+				local hrpp = lockedplr.Character.HumanoidRootPart
+				hrp.CFrame = (hrp.CFrame - hrp.CFrame.Position) + hrpp.CFrame.Position
+				hrp.AssemblyLinearVelocity = hrpp.AssemblyLinearVelocity
+			end
+			task.wait()
 		end
 	end)
 
+	local homeless = true
+
 	task.spawn(function()
 		while true do
-			local homeless = true
 			if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 				local dublo = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 				local reidn = game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity
 				local plot = nil
+				local diddybligga = true
 				for _,home in pairs(workspace.Plots:GetChildren()) do
 					for _,person in pairs(home.PlotSign.ThisPlotsOwners:GetChildren()) do
 						if person.Value == game.Players.LocalPlayer.Name then
-							homeless = false
+							if homeless then task.wait(5) end
+							diddybligga = false
 						end
 					end
 				end
+				for _,house in pairs(workspace.Plots:GetChildren()) do
+					for _,person in pairs(house.PlotSign:GetChildren()) do
+						if person.Name == "Sign" then
+							if person.Screen.SurfaceGui.Frame.Visible and person.Screen.SurfaceGui.Frame.PlayerDisplayName.Text == game.Players.LocalPlayer.DisplayName then
+								if homeless then task.wait(5) end
+								diddybligga = false
+								plot = house.Name
+								if plot == "Plot1" then
+									SL = tpland["GreenHouse"]
+								elseif plot == "Plot2" then
+									SL = tpland["PinkHouse"]
+								elseif plot == "Plot3" then
+									SL = tpland["PurpleHouse"]
+								elseif plot == "Plot4" then
+									SL = tpland["BlueHouse"]
+								elseif plot == "Plot5" then
+									SL = tpland["ChineseHouse"]
+								end
+							end
+						end
+					end
+				end
+				homeless = diddybligga
 				if homeless then
 					for _,home in pairs(workspace.Plots:GetChildren()) do
 						if not home.PlotSign.ThisPlotsOwners:FindFirstChild("Value") and not plot then
@@ -3146,15 +3178,15 @@ else
 					end
 					if plot then
 						if plot == "Plot1" then
-							TSPMO:Set("GreenHouse")
+							SL = tpland["GreenHouse"]
 						elseif plot == "Plot2" then
-							TSPMO:Set("PinkHouse")
+							SL = tpland["PinkHouse"]
 						elseif plot == "Plot3" then
-							TSPMO:Set("PurpleHouse")
+							SL = tpland["PurpleHouse"]
 						elseif plot == "Plot4" then
-							TSPMO:Set("BlueHouse")
+							SL = tpland["BlueHouse"]
 						elseif plot == "Plot5" then
-							TSPMO:Set("ChineseHouse")
+							SL = tpland["ChineseHouse"]
 						end
 					end
 				end
