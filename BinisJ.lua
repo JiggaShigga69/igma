@@ -9,7 +9,7 @@ else
 	game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">Starting BinisJ Nigga</font>")
 
 	game.ReplicatedStorage.GrabEvents.ExtendGrabLine.OnClientEvent:Connect(function(plr,arg1)
-		if plr ~= game.Players.LocalPlayer and arg1[1] == "BinisJ" then
+		if plr ~= game.Players.LocalPlayer and type(arg1) == "table" and arg1[1] == "BinisJ" then
 			if arg1[2] == "Starting" then
 				game.ReplicatedStorage.GrabEvents.ExtendGrabLine:FireServer({"BinisJ","NotStarting"})
 				if not plr.BJValue.Value then
@@ -206,6 +206,8 @@ else
 
 	local EspList = {}
 
+	local flying = false
+
 	function UNESPP(plr)
 		task.spawn(function()
 			if plr.Character then
@@ -398,7 +400,9 @@ else
 			end
 		end)
 		penis2 = game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
-			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS * 16
+			local nigger = 1
+			if flying then nigger = 10 end
+			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS * 16 * nigger
 		end)
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS
 	end
@@ -411,10 +415,39 @@ else
 			end
 		end)
 		penis2 = b:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
-			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS * 16
+			local nigger = 1
+			if flying then nigger = 10 end
+			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS * 16 * nigger
 		end)
 		b.WalkSpeed = WS
 		game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(SL)
+	end)
+
+	task.spawn(function()
+		while true do
+			for _,plr in pairs(game.Players:GetChildren()) do
+				if plr.Character and plr ~= game.Players.LocalPlayer then
+					for _,prt in pairs(plr.Character:GetChildren()) do
+						if prt:IsA("BasePart") then
+							prt.CollisionGroup = "PlotPlayers"
+							if prt:FindFirstChild("RagdollLimbPart") then
+								prt.RagdollLimbPart.CollisionGroup = "PlotPlayers"
+							end
+						end
+					end
+				elseif plr.Character and plr == game.Players.LocalPlayer then
+					for _,prt in pairs(plr.Character:GetChildren()) do
+						if prt:IsA("BasePart") then
+							prt.CollisionGroup = "Players"
+							if prt:FindFirstChild("RagdollLimbPart") then
+								prt.RagdollLimbPart.CollisionGroup = "Players"
+							end
+						end
+					end
+				end
+			end
+			task.wait()
+		end
 	end)
 
 	local joinland = {}
@@ -516,6 +549,7 @@ else
 					model:WaitForChild("HumanoidCreature").WalkSpeed = WS * 20
 				end
 			elseif model.Name == "ToolPencil" then
+				local bill = model:WaitForChild("SoundPart")
 				local prt = Instance.new("Part")
 				prt.Name = "PenisPart"
 				prt.Parent = model
@@ -751,6 +785,76 @@ else
 		workspace:WaitForChild(plr.Name.."SpawnedInToys").ChildAdded:Connect(function(model)
 			if model.Name == "CreatureBlobman" then
 				model:WaitForChild("HumanoidCreature").WalkSpeed = WS * 20
+			elseif model.Name == "ToolPencil" then
+				local bill = model:WaitForChild("SoundPart")
+				local prt = Instance.new("Part")
+				prt.Name = "PenisPart"
+				prt.Parent = model
+				prt.CFrame = bill.CFrame + (bill.CFrame.RightVector * 2.193)
+				prt.Rotation += Vector3.new(0, 0, 270)
+				prt.Transparency = 1
+				prt.CanCollide = false
+				prt.CanQuery = false
+				prt.CanTouch = false
+				prt.Size = Vector3.new(0.5,0.5,0.5)
+
+				local wc = Instance.new("WeldConstraint")
+				wc.Parent = prt
+				wc.Part0 = bill
+				wc.Part1 = prt
+
+				local pe = Instance.new("ParticleEmitter")
+				pe.Parent = prt
+				pe.SpreadAngle = Vector2.new(10,10)
+				pe.Texture = "rbxassetid://120974828567943"
+				pe.Rate = 100
+				pe.Speed = NumberRange.new(25,25)
+				pe.Lifetime = NumberRange.new(0.25,0.5)
+				local numberSequence = NumberSequence.new{
+					NumberSequenceKeypoint.new(0, 0),
+					NumberSequenceKeypoint.new(1, 1),
+				}
+				pe.Transparency = numberSequence
+				numberSequence = NumberSequence.new{
+					NumberSequenceKeypoint.new(0, 0.5),
+					NumberSequenceKeypoint.new(1, 0.5),
+				}
+				pe.Size = numberSequence
+
+				for _,prt in pairs(model:GetChildren()) do
+					if prt:IsA("BasePart") then
+						prt.CanQuery = false
+						prt.CanTouch = false
+					end
+				end
+			elseif model.Name == "NinjaKunai" then
+				local bbg = Instance.new("BillboardGui")
+				bbg.Parent = model
+				bbg.Size = UDim2.new(1, 0, 1, 0)
+				bbg.Adornee = model
+
+				local bbl = Instance.new("ImageLabel")
+				bbl.Parent = bbg
+				bbl.BackgroundTransparency = 1
+				bbl.Size = UDim2.new(1, 0, 1, 0)
+				bbl.Position = UDim2.new(0, 0, 0, 0)
+				bbl.AnchorPoint = Vector2.new(0.5, 0.5)
+				bbl.Position = UDim2.new(0.5, 0, 0.5, 0)
+
+				local constraint = Instance.new("UIAspectRatioConstraint")
+				constraint.AspectRatio = 1
+				constraint.Parent = bbl
+				bbl.Image = 'rbxassetid://120974828567943'
+
+				task.wait()
+
+				for _,prt in pairs(model:GetChildren()) do
+					if prt:IsA("BasePart") then
+						prt.CanQuery = false
+						prt.CanTouch = false
+						prt.Transparency = 1
+					end
+				end
 			elseif model.Name == "BallMagicLight" and bonerenabled then
 				Boner(model)
 			elseif model.Name == "BombMissile" or model.Name == "BallSnowball" or model.Name == "BombDarkMatter" or model.Name == "BombBalloon" then
@@ -866,7 +970,7 @@ else
 
 	GS:AddBind({
 		Name = "Send To Location",
-		Default = Enum.KeyCode.Z,
+		Default = Enum.KeyCode.K,
 		Hold = false,
 		Callback = function()
 			if prisonactive then
@@ -944,7 +1048,7 @@ else
 	local gotitdownPAT = PT:AddSlider({
 		Name = "Set Walk-Speed",
 		Min = 0.1,
-		Max = 50,
+		Max = 100,
 		Default = 1,
 		Color = Color3.fromRGB(255,255,255),
 		Increment = 0.1,
@@ -1019,7 +1123,6 @@ else
 		end,
 	})
 
-	local flying = false
 	local already = false
 
 	cloneref(game.Players.LocalPlayer:GetMouse()).KeyDown:Connect(function(KEYY)
@@ -1069,6 +1172,7 @@ else
 						end)
 						local function FloatPadLoop()
 							if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild('CreativeFlyPart') and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and flying then
+								game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS * 16 * 10
 								Float.Transparency = 1
 								FloatValue = 3.1
 								if uppies then
@@ -1088,6 +1192,7 @@ else
 								Float:Destroy()
 								Up:Disconnect()
 								Down:Disconnect()
+
 							end
 						end
 						game.Players.LocalPlayer.Character.Humanoid.JumpHeight = 0
@@ -1714,6 +1819,7 @@ else
 		task.spawn(function()
 			game.ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer("ToolPencil",CFrame.new(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame.Position)+Vector3.new(0,0,15),Vector3.new(0,0,0))
 		end)
+
 		local diddle = game.workspace:FindFirstChild(game.Players.LocalPlayer.Name.."SpawnedInToys"):WaitForChild("ToolPencil",1)
 		
 		if not diddle then return "Nigga" end
@@ -1721,47 +1827,6 @@ else
 		local bill = diddle:WaitForChild("SoundPart",1)
 
 		if not bill then return "Nigga" end
-
-		local prt = Instance.new("Part")
-		prt.Name = "PenisPart"
-		prt.Parent = diddle
-		prt.CFrame = bill.CFrame + (bill.CFrame.RightVector * 2.193)
-		prt.Rotation += Vector3.new(0, 0, 270)
-		prt.Transparency = 1
-		prt.CanCollide = false
-		prt.CanQuery = false
-		prt.CanTouch = false
-		prt.Size = Vector3.new(0.5,0.5,0.5)
-
-		local wc = Instance.new("WeldConstraint")
-		wc.Parent = prt
-		wc.Part0 = bill
-		wc.Part1 = prt
-
-		local pe = Instance.new("ParticleEmitter")
-		pe.Parent = prt
-		pe.SpreadAngle = Vector2.new(10,10)
-		pe.Texture = "rbxassetid://120974828567943"
-		pe.Rate = 100
-		pe.Speed = NumberRange.new(25,25)
-		pe.Lifetime = NumberRange.new(0.25,0.5)
-		local numberSequence = NumberSequence.new{
-			NumberSequenceKeypoint.new(0, 0),
-			NumberSequenceKeypoint.new(1, 1),
-		}
-		pe.Transparency = numberSequence
-		numberSequence = NumberSequence.new{
-			NumberSequenceKeypoint.new(0, 0.5),
-			NumberSequenceKeypoint.new(1, 0.5),
-		}
-		pe.Size = numberSequence
-
-		for _,prt in pairs(diddle:GetChildren()) do
-			if prt:IsA("BasePart") then
-				prt.CanQuery = false
-				prt.CanTouch = false
-			end
-		end
 
 		if plr then
 			diddle.Name = plr.Name
@@ -1779,34 +1844,6 @@ else
 		local diddle = game.workspace:FindFirstChild(game.Players.LocalPlayer.Name.."SpawnedInToys"):WaitForChild("NinjaKunai",1)
 		
 		if not diddle then return "Nigga" end
-
-		local bbg = Instance.new("BillboardGui")
-		bbg.Parent = diddle
-		bbg.Size = UDim2.new(1, 0, 1, 0)
-		bbg.Adornee = diddle
-
-		local bbl = Instance.new("ImageLabel")
-		bbl.Parent = bbg
-		bbl.BackgroundTransparency = 1
-		bbl.Size = UDim2.new(1, 0, 1, 0)
-		bbl.Position = UDim2.new(0, 0, 0, 0)
-		bbl.AnchorPoint = Vector2.new(0.5, 0.5)
-		bbl.Position = UDim2.new(0.5, 0, 0.5, 0)
-
-		local constraint = Instance.new("UIAspectRatioConstraint")
-		constraint.AspectRatio = 1
-		constraint.Parent = bbl
-		bbl.Image = 'rbxassetid://120974828567943'
-
-		task.spawn(function()task.wait()
-			for _,prt in pairs(diddle:GetChildren()) do
-				if prt:IsA("BasePart") then
-					prt.CanQuery = false
-					prt.CanTouch = false
-					prt.Transparency = 1
-				end
-			end
-		end)
 
 		if plr then
 			diddle.Name = plr.Name
@@ -2175,7 +2212,7 @@ else
 
 	BS:AddToggle({
 		Name = "Activate Freeze Item",
-		Default = false,
+		Default = true,
 		Callback = function(Value)
 			FA = Value
 		end
@@ -3009,6 +3046,71 @@ else
 		end    
 	})
 
+	TS:AddSection({
+		Name = "Tp To Mouse"
+	})
+
+	local holdingthatschlong = false
+	local lookforplrs = false
+	local lockedplr = nil
+
+	TS:AddBind({
+		Name = "TP To Mouse",
+		Default = Enum.KeyCode.Z,
+		Hold = true,
+		Callback = function(did)
+			holdingthatschlong = did
+			lookforplrs = did
+			lockedplr = nil
+		end
+	})
+
+	local mpoint = Vector3.new(0,0,0)
+	local mobject = nil
+	local diddyplr = nil
+
+	game:GetService("RunService").RenderStepped:Connect(function()
+		local hrp = nil
+		if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+			hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+		end
+		if lookforplrs and not lockedplr then
+			mpoint = game.Players.LocalPlayer:GetMouse().Hit.Position
+			mobject = game.Players.LocalPlayer:GetMouse().Target
+			if mobject then
+				diddyplr = game.Players:GetPlayerFromCharacter(mobject:FindFirstAncestorWhichIsA("Model"))
+			end
+			if diddyplr then
+				lockedplr = diddyplr
+				lookforplrs = false
+			end
+		else
+			mpoint = Vector3.new(0,0,0)
+			mobject = nil
+			diddyplr = nil
+		end
+		if hrp then
+			if mobject then
+				if holdingthatschlong then
+					hrp.AssemblyLinearVelocity = mobject.AssemblyLinearVelocity
+				end
+			end
+			if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+				if holdingthatschlong then
+					local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+					hrp.CFrame = (hrp.CFrame - hrp.CFrame.Position) + game.Players.LocalPlayer:GetMouse().Hit.Position
+					holdingthatschlong = false
+				end
+			end
+		end
+		if lockedplr and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and lockedplr.Character and lockedplr.Character:FindFirstChild("HumanoidRootPart") then
+			local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+			local hrpp = lockedplr.Character.HumanoidRootPart
+			hrp.CFrame = (hrp.CFrame - hrp.CFrame.Position) + hrpp.CFrame.Position
+			hrp.AssemblyLinearVelocity = hrpp.AssemblyLinearVelocity
+		end
+	end)
+
 	task.spawn(function()
 		while true do
 			local homeless = true
@@ -3064,33 +3166,6 @@ else
 	TS:AddSection({
 		Name = "Teleport"
 	})
-
-	task.spawn(function()
-		while true do
-			for _,plr in pairs(game.Players:GetChildren()) do
-				if plr.Character and plr ~= game.Players.LocalPlayer then
-					for _,prt in pairs(plr.Character:GetChildren()) do
-						if prt:IsA("BasePart") then
-							prt.CollisionGroup = "PlotPlayers"
-							if prt:FindFirstChild("RagdollLimbPart") then
-								prt.RagdollLimbPart.CollisionGroup = "PlotPlayers"
-							end
-						end
-					end
-				elseif plr.Character and plr == game.Players.LocalPlayer then
-					for _,prt in pairs(plr.Character:GetChildren()) do
-						if prt:IsA("BasePart") then
-							prt.CollisionGroup = "Players"
-							if prt:FindFirstChild("RagdollLimbPart") then
-								prt.RagdollLimbPart.CollisionGroup = "Players"
-							end
-						end
-					end
-				end
-			end
-			task.wait()
-		end
-	end)
 
 	local ST = Window:MakeTab({
 		Name = "Scripts",
