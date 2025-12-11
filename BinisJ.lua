@@ -8,6 +8,61 @@ else
 	local bjlist = {}
 	game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">Starting BinisJ Nigga</font>")
 
+	local joinland = {}
+	local currantplrlist = {}
+
+	for _,plr in pairs(game.Players:GetChildren()) do
+		if plr ~= game.Players.LocalPlayer then
+			if not plr:FindFirstChild("BinisJ") then
+				local b = Instance.new("Folder")
+				b.Name = "BinisJ"
+				b.Parent = plr
+
+				local ba = Instance.new("BoolValue")
+				ba.Name = "OwnershipTP"
+				ba.Parent = b
+
+				local bb = Instance.new("Vector3Value")
+				bb.Name = "OwnershipLocation"
+				bb.Parent = b
+
+				local bc = Instance.new("BoolValue")
+				bc.Name = "ESP"
+				bc.Parent = b
+
+				local bd = Instance.new("BoolValue")
+				bd.Name = "Blobkick"
+				bd.Parent = b
+
+				local be = Instance.new("BoolValue")
+				be.Name = "LoopKill"
+				be.Parent = b
+
+				local bf = Instance.new("BoolValue")
+				bf.Name = "Penis"
+				bf.Parent = b
+
+				local bg = Instance.new("BoolValue")
+				bg.Name = "AntiKick"
+				bg.Parent = b
+
+				local bh = Instance.new("BoolValue")
+				bh.Name = "OwnershipKick"
+				bh.Parent = b
+
+				local bi = Instance.new("BoolValue")
+				bi.Name = "BJValue"
+				bi.Parent = b
+				bi.Value = false
+			end
+
+			table.insert(joinland,plr.UserId)
+			table.insert(joinland,plr.Name)
+			table.insert(joinland,plr.DisplayName)
+			table.insert(currantplrlist,plr.Name)
+		end
+	end
+
 	game.ReplicatedStorage.GrabEvents.ExtendGrabLine.OnClientEvent:Connect(function(plr,arg1)
 		if plr ~= game.Players.LocalPlayer and type(arg1) == "table" and arg1[1] == "BinisJ" then
 			if arg1[2] == "Starting" then
@@ -450,9 +505,6 @@ else
 		end
 	end)
 
-	local joinland = {}
-	local currantplrlist = {}
-
 	local pOTP
 	local pLK
 	local pOL
@@ -479,58 +531,6 @@ else
 	local OKLWF = true
 	local BKA = false
 	local BKAWL = true
-
-	for _,plr in pairs(game.Players:GetChildren()) do
-		if plr ~= game.Players.LocalPlayer then
-			if not plr:FindFirstChild("BinisJ") then
-				local b = Instance.new("Folder")
-				b.Name = "BinisJ"
-				b.Parent = plr
-
-				local ba = Instance.new("BoolValue")
-				ba.Name = "OwnershipTP"
-				ba.Parent = b
-
-				local bb = Instance.new("Vector3Value")
-				bb.Name = "OwnershipLocation"
-				bb.Parent = b
-
-				local bc = Instance.new("BoolValue")
-				bc.Name = "ESP"
-				bc.Parent = b
-
-				local bd = Instance.new("BoolValue")
-				bd.Name = "Blobkick"
-				bd.Parent = b
-
-				local be = Instance.new("BoolValue")
-				be.Name = "LoopKill"
-				be.Parent = b
-
-				local bf = Instance.new("BoolValue")
-				bf.Name = "Penis"
-				bf.Parent = b
-
-				local bg = Instance.new("BoolValue")
-				bg.Name = "AntiKick"
-				bg.Parent = b
-
-				local bh = Instance.new("BoolValue")
-				bh.Name = "OwnershipKick"
-				bh.Parent = b
-
-				local bi = Instance.new("BoolValue")
-				bi.Name = "BJValue"
-				bi.Parent = b
-				bi.Value = false
-			end
-
-			table.insert(joinland,plr.UserId)
-			table.insert(joinland,plr.Name)
-			table.insert(joinland,plr.DisplayName)
-			table.insert(currantplrlist,plr.Name)
-		end
-	end
 
 	local plrlist
 	local plrlistsel
