@@ -12,15 +12,15 @@ else
 		if plr ~= game.Players.LocalPlayer and type(arg1) == "table" and arg1[1] == "BinisJ" then
 			if arg1[2] == "Starting" then
 				game.ReplicatedStorage.GrabEvents.ExtendGrabLine:FireServer({"BinisJ","NotStarting"})
-				if not plr.BJValue.Value then
+				if not plr.BinisJ.BJValue.Value then
 					game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">"..plr.DisplayName.." (@"..plr.Name..") is using BinisJ</font>")
-					plr.BJValue.Value = true
+					plr.BinisJ.BJValue.Value = true
 				end
 			end
 			if arg1[2] == "NotStarting" then
-				if not plr.BJValue.Value then
+				if not plr.BinisJ.BJValue.Value then
 					game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">"..plr.DisplayName.." (@"..plr.Name..") is using BinisJ</font>")
-					plr.BJValue.Value = true
+					plr.BinisJ.BJValue.Value = true
 				end
 			end
 		end
