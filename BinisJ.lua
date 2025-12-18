@@ -12,6 +12,10 @@ else
 	local joinland = {}
 	local currantplrlist = {}
 
+	local dick3 = Instance.new("Folder")
+	dick3.Parent = game.workspace
+	dick3.Name = "BinisCreations"
+
 	for _,plr in pairs(game.Players:GetChildren()) do
 		if plr ~= game.Players.LocalPlayer then
 			if not plr:FindFirstChild("BinisJ") then
@@ -64,6 +68,179 @@ else
 		end
 	end
 
+	local BS
+	local buildnum = 1
+	local frozenlist = {}
+
+	function addanchitm(list,model)
+		local pp1 = model:FindFirstChild("pp1")
+		for _,prt in pairs(list) do
+			if prt and prt.Parent then
+				model:FindFirstChildWhichIsA("IntValue").Value += 1
+				if prt:FindFirstChild("somebodyshotaloadintomyburger2") then
+					prt.somebodyshotaloadintomyburger2:Destroy()
+				end
+				for _,prrt in pairs(prt:GetChildren()) do
+					if prrt:FindFirstChild("somebodyshotaloadintomyburger") then
+						prrt.somebodyshotaloadintomyburger:Destroy()
+					end
+				end
+				local bool
+				if prt:FindFirstChildWhichIsA("Humanoid") then
+					bool = false
+				else
+					bool = true
+				end
+				prt.Archivable = true
+				local dbcooper = prt:Clone()
+				local gottheblicky = Instance.new("Highlight")
+				gottheblicky.Name = "somebodyshotaloadintomyburger"
+				gottheblicky.FillTransparency = 1
+				gottheblicky.OutlineTransparency = 1
+				gottheblicky.FillColor = Color3.fromRGB(125,125,125)
+				local gottheblicky2 = Instance.new("Highlight")
+				gottheblicky2.Name = "somebodyshotaloadintomyburger2"
+				gottheblicky2.FillTransparency = 1
+				gottheblicky2.OutlineTransparency = 1
+				gottheblicky2.FillColor = Color3.fromRGB(125,125,125)
+				dbcooper.Parent = model
+				local wc = Instance.new("WeldConstraint")
+				wc.Name = 'diddyconstraint'
+				wc.Parent = dbcooper
+				wc.Part0 = dbcooper.PrimaryPart
+				wc.Part1 = pp1
+				local a1 = Instance.new("Attachment")
+				local a2 = Instance.new("Attachment")
+				local pp = Instance.new("AlignPosition")
+				local pp2 = Instance.new("AlignOrientation")
+				pp.Parent = prt.PrimaryPart
+				pp2.Parent = prt.PrimaryPart
+				a1.Parent = prt.PrimaryPart
+				a2.Parent = dbcooper.PrimaryPart
+					if bool then
+					pp.Attachment0 = a1
+					pp2.Attachment0 = a1
+					pp.Attachment1 = a2
+					pp2.Attachment1 = a2
+				else
+					pp.Attachment0 = a2
+					pp2.Attachment0 = a2
+					pp.Attachment1 = a1
+					pp2.Attachment1 = a1
+				end
+				pp.Responsiveness = 100
+				pp.MaxForce = 10^39
+				pp2.Responsiveness = 20
+				pp2.MaxTorque = 10^39
+				pp.MaxVelocity = 1000
+				if dbcooper:FindFirstChildWhichIsA("VehicleSeat") then
+					dbcooper.VehicleSeat:Destroy()
+				end
+				if bool then
+					for _,ting in pairs(prt:GetDescendants()) do
+						if ting:IsA("BasePart") then
+							ting.CanCollide = false
+							ting:SetAttribute("CanQuery",ting.CanQuery)
+							ting.CanQuery = false
+							local ph = ting.Transparency
+							ting:SetAttribute("Transparency",ph)
+							ting.Transparency = 1
+						end
+					end
+				else
+					for _,ting in pairs(dbcooper:GetDescendants()) do
+						if ting:IsA("BasePart") then
+							ting.CanCollide = false
+							ting.CanQuery = false
+							ting.Transparency = 1
+						end
+					end
+				end
+				if bool then
+					task.spawn(function()
+						while prt and dbcooper and dbcooper.PrimaryPart and prt.PrimaryPart do
+							local biddy = (dbcooper.PrimaryPart.CFrame.Position - prt.PrimaryPart.CFrame.Position).Magnitude
+							local trans = 0
+							if biddy - 20 > 0 then
+								trans = (biddy - 20) / 10
+							end
+							if trans > 1 then trans = 1 end
+							if trans == 0 then
+								gottheblicky.Parent = nil
+								gottheblicky2.Parent = nil
+							else
+								gottheblicky.Parent = dbcooper
+								gottheblicky2.Parent = prt
+								gottheblicky.FillTransparency = 1 - (trans * 0.5)
+								gottheblicky.OutlineTransparency = 1 - trans
+								gottheblicky2.FillTransparency = 1 - (trans * 0.5)
+								gottheblicky2.OutlineTransparency = 1 - trans
+							end
+							for _,prt in pairs(prt:GetChildren()) do
+								if prt:IsA("BasePart") then
+									prt.Transparency = 1 - ((1 - prt:GetAttribute("Transparency")) * trans)
+									if trans ~= 0 then
+										prt.CanQuery = prt:GetAttribute("CanQuery")
+									else
+										prt.CanQuery = false
+									end
+								end
+							end
+							task.wait()
+						end
+					end)
+				end
+				local p = false
+				prt:GetPropertyChangedSignal("Parent"):Connect(function()
+					if not prt or prt and not prt.Parent then
+						dbcooper:Destroy()
+						if not p then
+							p = true
+							model:FindFirstChildWhichIsA("IntValue").Value -= 1
+						end
+					end
+				end)
+				dbcooper:GetPropertyChangedSignal("Parent"):Connect(function()
+					if not dbcooper or dbcooper and not dbcooper.Parent then
+						if not p then
+							p = true
+							model:FindFirstChildWhichIsA("IntValue").Value -= 1
+						end
+						for _,prrt in pairs(prt:GetDescendants()) do
+							if prrt:IsA("BasePart") then
+								prrt.Transparency = prrt:GetAttribute("Transparency") or 0
+								prrt.CanCollide = true
+							end
+						end
+					end
+				end)
+				local avgpos = Vector3.new(0,0,0)
+				local count = 0
+				for _,prt in pairs(model:GetChildren()) do
+					if prt.ClassName == "Model" and prt.PrimaryPart then
+						avgpos += prt.PrimaryPart.CFrame.Position
+						count += 1
+					end
+				end
+				for _,lprt in pairs(model:GetChildren()) do
+					if lprt.ClassName == "Model" then
+						if lprt:FindFirstChild("diddyconstraint") then
+							lprt.diddyconstraint.Part1 = nil
+						end
+					end
+				end
+				pp1.CFrame = CFrame.new(avgpos / Vector3.new(count,count,count))
+				for _,lprt in pairs(model:GetChildren()) do
+					if lprt.ClassName == "Model" then
+						if lprt:FindFirstChild("diddyconstraint") then
+							lprt.diddyconstraint.Part1 = pp1
+						end
+					end
+				end
+			end
+		end
+	end
+
 	game.ReplicatedStorage.GrabEvents.ExtendGrabLine.OnClientEvent:Connect(function(plr,arg1)
 		if type(arg1) == "table" and arg1[1] == "BinisJ" then
 			if plr ~= game.Players.LocalPlayer then
@@ -83,6 +260,133 @@ else
 			end
 			if arg1[2] == "Print" then
 				game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage(arg1[3])
+			end
+			if arg1[2] == "New Build" then
+				BS:AddSection({
+					Name = "Binisj Creation"
+				})
+				local dibbly = BS:AddLabel("Total Items In Build: 0")
+				local buildtotal = 0
+				local bn = buildnum
+				local model = Instance.new("Model")
+				model.Parent = dick3
+				model.Name = "BinisJModel"..bn
+				local pp1 = Instance.new("Part")
+				pp1.Parent = model
+				model.PrimaryPart = pp1
+				pp1.Name = "pp1"
+				pp1.CFrame = CFrame.new(0,0,0)
+				pp1.Transparency = 1
+				pp1.CanCollide = false
+				pp1.CanQuery = false
+				pp1.Massless = true
+				local aura = Instance.new("IntValue")
+				aura.Value = 0
+				aura.Parent = model
+				aura:GetPropertyChangedSignal("Value"):Connect(function()
+					dibbly:Set("Total Items In Build: "..aura.Value)
+				end)
+				local aa1 = BS:AddButton({
+					Name = "Add Anchored Items To Build",
+					Callback = function()
+						addanchitm(frozenlist,model)
+						local boobyjr = {}
+						for _,itm in pairs(frozenlist) do
+							local itmprt = itm:FindFirstChild("HumanoidRootPart") or itm:FindFirstChild("SoundPart")
+							table.insert(boobyjr,{itm,pp1.CFrame:Inverse() * itmprt.CFrame})
+						end
+						game.ReplicatedStorage.GrabEvents.ExtendGrabLine:FireServer({"BinisJ","Set "..bn,boobyjr})
+						frozenlist = {}
+					end
+				})
+				local sizer = 1
+				local agentJEW = BS:AddSlider({
+					Name = "Set Build Size",
+					Min = 0.1,
+					Max = 50,
+					Default = 1,
+					Color = Color3.fromRGB(255,255,255),
+					Increment = 0.1,
+					ValueName = "Sped Shed",
+					Callback = function(Value)
+						model:ScaleTo(Value)
+					end
+				})
+				BS:AddButton({
+					Name = "Set size to 1",
+					Callback = function()
+						agentJEW:Set(1)
+					end
+				})
+				local aa2 = BS:AddToggle({
+					Name = "Highlight Build",
+					Default = false,
+					Callback = function(Value)
+						if Value then
+							local randall = Instance.new("Highlight")
+							randall.Parent = model
+							randall.Name = "somebodyshotaloadintomyburger2"
+							randall.FillTransparency = 0.4
+							randall.FillColor = Color3.fromRGB(27,126,208)
+							randall.OutlineColor = Color3.fromRGB(21,97,161)
+							
+							local bbg = Instance.new("BillboardGui")
+							bbg.Name = "somebodyshotaloadintomyburger"
+							bbg.Parent = pp1
+							bbg.Size = UDim2.new(0, 100, 0, 100)
+							bbg.SizeOffset = Vector2.new(0,0.25)
+							bbg.StudsOffset = Vector3.new(0,3,0)
+							bbg.Adornee = pp1
+
+							local bbt = Instance.new("TextLabel")
+							bbt.Parent = bbg
+							bbt.Size = UDim2.new(0, 100, 0, 100)
+							bbt.BackgroundTransparency = 1
+							bbt.TextColor3 = Color3.new(1,1,1)
+							bbt.TextSize = 20
+							bbt.Text = "BinisJ Model "..bn
+							bbt.TextStrokeColor3 = Color3.new(1,1,1)
+							bbt.TextStrokeTransparency = 0.75
+						else
+							if model:FindFirstChild("somebodyshotaloadintomyburger2") then
+								model.somebodyshotaloadintomyburger2:Destroy()
+							end
+							if pp1:FindFirstChild("somebodyshotaloadintomyburger") then
+								pp1.somebodyshotaloadintomyburger:Destroy()
+							end
+						end
+					end,
+				})
+				local aa3 = BS:AddButton({
+					Name = "Dismantle Build",
+					Callback = function()
+						for _,prt in pairs(model:GetChildren()) do
+							if prt.ClassName == "Model" then
+								prt:Destroy()
+							end
+						end
+					end,
+				})
+				game.ReplicatedStorage.GrabEvents.ExtendGrabLine.OnClientEvent:Connect(function(plr,arg1)
+					if type(arg1) == "table" and arg1[1] == "BinisJ" and plr ~= game.Players.LocalPlayer then
+						if arg1[2] == "Set "..bn then
+							for line,itm in pairs(arg1[3]) do
+								local idontflippingknowbro = itm[1]:FindFirstChild("HumanoidRootPart") or itm[1]:FindFirstChild("SoundPart")
+								idontflippingknowbro.CFrame = pp1.CFrame * itm[2]
+							end
+							addanchitm(arg1[3],model) 
+						elseif arg1[2] == "Resize "..bn then
+							agentJEW:Set(arg1[3])
+						elseif arg1[2] == "Dismantle "..bn then
+							for _,prt in pairs(model:GetChildren()) do
+								if prt.ClassName == "Model" then
+									prt:Destroy()
+								end
+							end
+						end
+					end
+				end)
+				buildnum += 1
 			end
 		end
 	end)
@@ -141,10 +445,6 @@ else
 	local dick2 = Instance.new("Folder")
 	dick2.Parent = game.workspace
 	dick2.Name = "BinisHoles"
-
-	local dick3 = Instance.new("Folder")
-	dick3.Parent = game.workspace
-	dick3.Name = "BinisCreations"
 
 	game.Players.LocalPlayer.CameraMaxZoomDistance = 100000
 
@@ -902,7 +1202,10 @@ else
 						msnum = plr.AccountAge
 					end
 				end
-				MasterPlayer = msplr
+				if MasterPlayer ~= msplr then
+					game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(200,200,200)\">"..plr.DisplayName.." (@"..plr.Name..") is the muscle tustler</font>")
+					MasterPlayer = msplr
+				end
 			end
 		end
 		if loaded then
@@ -1167,18 +1470,18 @@ else
 		while true do
 			if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
 				game.Players.LocalPlayer.Character.Humanoid.JumpHeight = 0
-			end
-			if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" then
-				game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = false
-				if game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent:FindFirstChild("HumanoidCreature") then
-					if not flying then
-						game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.HumanoidCreature.Jump = holdingspace
+				if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" then
+					game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = false
+					if game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent:FindFirstChild("HumanoidCreature") then
+						if not flying then
+							game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.HumanoidCreature.Jump = holdingspace
+						end
 					end
+				elseif flying then
+					game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = false
+				else
+					game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
 				end
-			elseif flying then
-				game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = false
-			else
-				game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
 			end
 			task.wait()
 		end
@@ -2440,8 +2743,6 @@ else
 		end
 	})
 
-	local frozenlist = {}
-
 	BS:AddBind({
 		Name = "Freeze Item",
 		Default = Enum.KeyCode.X,
@@ -2498,271 +2799,10 @@ else
 		Name = "Create New Build"
 	})
 
-	local buildnum = 1
-
 	BS:AddButton({
 		Name = "Create New Build",
 		Callback = function()
-			BS:AddSection({
-				Name = "Build "..buildnum
-			})
-			local dibbly = BS:AddLabel("Total Items In Build: 0")
-			local buildtotal = 0
-			local bn = buildnum
-			local model = Instance.new("Model")
-			model.Parent = dick3
-			model.Name = "BinisJModel"..bn
-			local pp1 = Instance.new("Part")
-			pp1.Parent = model
-			model.PrimaryPart = pp1
-			pp1.CFrame = CFrame.new(0,0,0)
-			pp1.Transparency = 1
-			pp1.CanCollide = false
-			pp1.CanQuery = false
-			pp1.Massless = true
-			local aa1 = BS:AddButton({
-				Name = "Add Anchored Items To Build",
-				Callback = function()
-					for _,prt in pairs(frozenlist) do
-						if prt and prt.Parent then
-							buildtotal += 1
-							dibbly:Set("Total Items In Build: "..buildtotal)
-							if prt:FindFirstChild("somebodyshotaloadintomyburger2") then
-								prt.somebodyshotaloadintomyburger2:Destroy()
-							end
-							for _,prrt in pairs(prt:GetChildren()) do
-								if prrt:FindFirstChild("somebodyshotaloadintomyburger") then
-									prrt.somebodyshotaloadintomyburger:Destroy()
-								end
-							end
-							local bool
-							if prt:FindFirstChildWhichIsA("Humanoid") then
-								bool = false
-							else
-								bool = true
-							end
-							prt.Archivable = true
-							local dbcooper = prt:Clone()
-							local gottheblicky = Instance.new("Highlight")
-							gottheblicky.Name = "somebodyshotaloadintomyburger"
-							gottheblicky.FillTransparency = 1
-							gottheblicky.OutlineTransparency = 1
-							gottheblicky.FillColor = Color3.fromRGB(125,125,125)
-							local gottheblicky2 = Instance.new("Highlight")
-							gottheblicky2.Name = "somebodyshotaloadintomyburger2"
-							gottheblicky2.FillTransparency = 1
-							gottheblicky2.OutlineTransparency = 1
-							gottheblicky2.FillColor = Color3.fromRGB(125,125,125)
-							dbcooper.Parent = model
-							local wc = Instance.new("WeldConstraint")
-							wc.Name = 'diddyconstraint'
-							wc.Parent = dbcooper
-							wc.Part0 = dbcooper.PrimaryPart
-							wc.Part1 = pp1
-							local a1 = Instance.new("Attachment")
-							local a2 = Instance.new("Attachment")
-							local pp = Instance.new("AlignPosition")
-							local pp2 = Instance.new("AlignOrientation")
-							pp.Parent = prt.PrimaryPart
-							pp2.Parent = prt.PrimaryPart
-							a1.Parent = prt.PrimaryPart
-							a2.Parent = dbcooper.PrimaryPart
-								if bool then
-								pp.Attachment0 = a1
-								pp2.Attachment0 = a1
-								pp.Attachment1 = a2
-								pp2.Attachment1 = a2
-							else
-								pp.Attachment0 = a2
-								pp2.Attachment0 = a2
-								pp.Attachment1 = a1
-								pp2.Attachment1 = a1
-							end
-							pp.Responsiveness = 100
-							pp.MaxForce = 10^39
-							pp2.Responsiveness = 20
-							pp2.MaxTorque = 10^39
-							pp.MaxVelocity = 1000
-							if dbcooper:FindFirstChildWhichIsA("VehicleSeat") then
-								dbcooper.VehicleSeat:Destroy()
-							end
-							if bool then
-								for _,ting in pairs(prt:GetDescendants()) do
-									if ting:IsA("BasePart") then
-										ting.CanCollide = false
-										ting:SetAttribute("CanQuery",ting.CanQuery)
-										ting.CanQuery = false
-										local ph = ting.Transparency
-										ting:SetAttribute("Transparency",ph)
-										ting.Transparency = 1
-									end
-								end
-							else
-								for _,ting in pairs(dbcooper:GetDescendants()) do
-									if ting:IsA("BasePart") then
-										ting.CanCollide = false
-										ting.CanQuery = false
-										ting.Transparency = 1
-									end
-								end
-							end
-							if bool then
-								task.spawn(function()
-									while prt and dbcooper and dbcooper.PrimaryPart and prt.PrimaryPart do
-										local biddy = (dbcooper.PrimaryPart.CFrame.Position - prt.PrimaryPart.CFrame.Position).Magnitude
-										local trans = 0
-										if biddy - 20 > 0 then
-											trans = (biddy - 20) / 10
-										end
-										if trans > 1 then trans = 1 end
-										if trans == 0 then
-											gottheblicky.Parent = nil
-											gottheblicky2.Parent = nil
-										else
-											gottheblicky.Parent = dbcooper
-											gottheblicky2.Parent = prt
-											gottheblicky.FillTransparency = 1 - (trans * 0.5)
-											gottheblicky.OutlineTransparency = 1 - trans
-											gottheblicky2.FillTransparency = 1 - (trans * 0.5)
-											gottheblicky2.OutlineTransparency = 1 - trans
-										end
-										for _,prt in pairs(prt:GetChildren()) do
-											if prt:IsA("BasePart") then
-												prt.Transparency = 1 - ((1 - prt:GetAttribute("Transparency")) * trans)
-												if trans ~= 0 then
-													prt.CanQuery = prt:GetAttribute("CanQuery")
-												else
-													prt.CanQuery = false
-												end
-											end
-										end
-										task.wait()
-									end
-								end)
-							end
-							local p = false
-							prt:GetPropertyChangedSignal("Parent"):Connect(function()
-								if not prt or prt and not prt.Parent then
-									dbcooper:Destroy()
-									if not p then
-										p = true
-										buildtotal -= 1
-										dibbly:Set("Total Items In Build: "..buildtotal)
-									end
-								end
-							end)
-							dbcooper:GetPropertyChangedSignal("Parent"):Connect(function()
-								if not dbcooper or dbcooper and not dbcooper.Parent then
-									if not p then
-										p = true
-										buildtotal -= 1
-										dibbly:Set("Total Items In Build: "..buildtotal)
-									end
-									for _,prrt in pairs(prt:GetDescendants()) do
-										if prrt:IsA("BasePart") then
-											prrt.Transparency = prrt:GetAttribute("Transparency") or 0
-											prrt.CanCollide = true
-										end
-									end
-								end
-							end)
-							local avgpos = Vector3.new(0,0,0)
-							local count = 0
-							for _,prt in pairs(model:GetChildren()) do
-								if prt.ClassName == "Model" and prt.PrimaryPart then
-									avgpos += prt.PrimaryPart.CFrame.Position
-									count += 1
-								end
-							end
-							for _,lprt in pairs(model:GetChildren()) do
-								if lprt.ClassName == "Model" then
-									if lprt:FindFirstChild("diddyconstraint") then
-										lprt.diddyconstraint.Part1 = nil
-									end
-								end
-							end
-							pp1.CFrame = CFrame.new(avgpos / Vector3.new(count,count,count))
-							for _,lprt in pairs(model:GetChildren()) do
-								if lprt.ClassName == "Model" then
-									if lprt:FindFirstChild("diddyconstraint") then
-										lprt.diddyconstraint.Part1 = pp1
-									end
-								end
-							end
-						end
-					end
-					frozenlist = {}
-				end
-			})
-			local sizer = 1
-			local agentJEW = BS:AddSlider({
-				Name = "Set Build Size",
-				Min = 0.1,
-				Max = 50,
-				Default = 1,
-				Color = Color3.fromRGB(255,255,255),
-				Increment = 0.1,
-				ValueName = "Sped Shed",
-				Callback = function(Value)
-					model:ScaleTo(Value)
-				end
-			})
-			BS:AddButton({
-				Name = "Set size to 1",
-				Callback = function()
-					agentJEW:Set(1)
-				end
-			})
-			local aa2 = BS:AddToggle({
-				Name = "Highlight Build",
-				Default = false,
-				Callback = function(Value)
-					if Value then
-						local randall = Instance.new("Highlight")
-						randall.Parent = model
-						randall.Name = "somebodyshotaloadintomyburger2"
-						randall.FillTransparency = 0.4
-						randall.FillColor = Color3.fromRGB(27,126,208)
-						randall.OutlineColor = Color3.fromRGB(21,97,161)
-						
-						local bbg = Instance.new("BillboardGui")
-						bbg.Name = "somebodyshotaloadintomyburger"
-						bbg.Parent = pp1
-						bbg.Size = UDim2.new(0, 100, 0, 100)
-						bbg.SizeOffset = Vector2.new(0,0.25)
-						bbg.StudsOffset = Vector3.new(0,3,0)
-						bbg.Adornee = pp1
-
-						local bbt = Instance.new("TextLabel")
-						bbt.Parent = bbg
-						bbt.Size = UDim2.new(0, 100, 0, 100)
-						bbt.BackgroundTransparency = 1
-						bbt.TextColor3 = Color3.new(1,1,1)
-						bbt.TextSize = 20
-						bbt.Text = "BinisJ Model "..bn
-						bbt.TextStrokeColor3 = Color3.new(1,1,1)
-						bbt.TextStrokeTransparency = 0.75
-					else
-						if model:FindFirstChild("somebodyshotaloadintomyburger2") then
-							model.somebodyshotaloadintomyburger2:Destroy()
-						end
-						if pp1:FindFirstChild("somebodyshotaloadintomyburger") then
-							pp1.somebodyshotaloadintomyburger:Destroy()
-						end
-					end
-				end,
-			})
-			local aa3 = BS:AddButton({
-				Name = "Dismantle Build",
-				Callback = function()
-					for _,prt in pairs(model:GetChildren()) do
-						if prt.ClassName == "Model" then
-							prt:Destroy()
-						end
-					end
-				end,
-			})
-			buildnum += 1
+			game.ReplicatedStorage.GrabEvents.ExtendGrabLine:FireServer({"BinisJ","New Build"})
 		end
 	})
 
