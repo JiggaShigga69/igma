@@ -6,7 +6,8 @@ else
 	bjjjj.Parent = workspace
 	bjjjj.Value = true
 	local bjlist = {}
-	game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">Starting BinisJ Nigga</font>")
+	local MasterPlayer = game.Players.LocalPlayer
+	game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">[BinisJ]</font><font color=\"rgb(255, 255, 255)\"> Initiating the EDITION</font>")
 
 	local joinland = {}
 	local currantplrlist = {}
@@ -64,19 +65,24 @@ else
 	end
 
 	game.ReplicatedStorage.GrabEvents.ExtendGrabLine.OnClientEvent:Connect(function(plr,arg1)
-		if plr ~= game.Players.LocalPlayer and type(arg1) == "table" and arg1[1] == "BinisJ" then
-			if arg1[2] == "Starting" then
-				game.ReplicatedStorage.GrabEvents.ExtendGrabLine:FireServer({"BinisJ","NotStarting"})
-				if not plr.BinisJ.BJValue.Value then
-					game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">"..plr.DisplayName.." (@"..plr.Name..") is using BinisJ</font>")
-					plr.BinisJ.BJValue.Value = true
+		if type(arg1) == "table" and arg1[1] == "BinisJ" then
+			if plr ~= game.Players.LocalPlayer then
+				if arg1[2] == "Starting" then
+					game.ReplicatedStorage.GrabEvents.ExtendGrabLine:FireServer({"BinisJ","NotStarting"})
+					if not plr.BinisJ.BJValue.Value then
+						game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">[BinisJ] "..plr.DisplayName.." (@"..plr.Name..") is a good boy</font>")
+						plr.BinisJ.BJValue.Value = true
+					end
+				end
+				if arg1[2] == "NotStarting" then
+					if not plr.BinisJ.BJValue.Value then
+						game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">[BinisJ] "..plr.DisplayName.." (@"..plr.Name..") is a good boy</font>")
+						plr.BinisJ.BJValue.Value = true
+					end
 				end
 			end
-			if arg1[2] == "NotStarting" then
-				if not plr.BinisJ.BJValue.Value then
-					game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">"..plr.DisplayName.." (@"..plr.Name..") is using BinisJ</font>")
-					plr.BinisJ.BJValue.Value = true
-				end
+			if arg1[2] == "Print" then
+				game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage(arg1[3])
 			end
 		end
 	end)
@@ -542,12 +548,8 @@ else
 	local WLlistsel
 
 	game:GetService("Players").ChildAdded:Connect(function(plr)
-		plr.CharacterAdded:Connect(function()
-			if plr.BinisJ.ESP.Value or ESPA then
-				ESPP(plr)
-			end
-		end)
 		workspace:WaitForChild(plr.Name.."SpawnedInToys").ChildAdded:Connect(function(model)
+			model:SetAttribute("Bumass", 1)
 			if model.Name == "CreatureBlobman" then
 				if WSE then
 					model:WaitForChild("HumanoidCreature").WalkSpeed = WS * 20
@@ -631,6 +633,12 @@ else
 						prt.CollisionGroup = "PlotItems"
 					end
 				end
+			end
+		end)
+
+		plr.CharacterAdded:Connect(function()
+			if plr.BinisJ.ESP.Value or ESPA then
+				ESPP(plr)
 			end
 		end)
 
@@ -787,6 +795,7 @@ else
 			end
 		end)
 		workspace:WaitForChild(plr.Name.."SpawnedInToys").ChildAdded:Connect(function(model)
+			model:SetAttribute("Bumass", 1)
 			if model.Name == "CreatureBlobman" then
 				model:WaitForChild("HumanoidCreature").WalkSpeed = WS * 20
 			elseif model.Name == "ToolPencil" then
@@ -870,13 +879,30 @@ else
 				end
 			end
 		end)
+		for _,model in pairs(workspace:FindFirstChild(plr.Name.."SpawnedInToys")) do
+			if model:IsA("Model") then
+				model:SetAttribute("Bumass", 1)
+			end
+		end
 	end
 
 	game:GetService("Players").ChildRemoved:Connect(function(plr)
 		currantplrlist = {}
+		local masterplr = game.Players.LocalPlayer
 		for _,plr in pairs(game.Players:GetChildren()) do
 			if plr ~= game.Players.LocalPlayer then
 				table.insert(currantplrlist,plr.Name)
+			end
+			if table.find(bjlist,plr.Name) then
+				local msplr = game.Players.LocalPlayer
+				local msnum = 0
+				for _,plr in pairs(game.Players:GetPlayers()) do
+					if plr ~= game.Players.LocalPlayer and plr.BinisJ.BJValue.Value and plr.AccountAge > msnum then
+						msplr = plr
+						msnum = plr.AccountAge
+					end
+				end
+				MasterPlayer = msplr
 			end
 		end
 		if loaded then
@@ -914,7 +940,7 @@ else
 	})
 
 	GS:AddToggle({
-		Name = "Activate Big Muscles",
+		Name = "Boi dont tussle with the muscle",
 		Default = true,
 		Callback = function(Value)
 			BMA = Value
@@ -1133,13 +1159,139 @@ else
 	local AKE
 	local APKE
 
+	local already2 = false
+
+	local holdingspace = false
+
+	task.spawn(function()
+		while true do
+			if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+				game.Players.LocalPlayer.Character.Humanoid.JumpHeight = 0
+			end
+			if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" then
+				game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = false
+				if game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent:FindFirstChild("HumanoidCreature") then
+					if not flying then
+						game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.HumanoidCreature.Jump = holdingspace
+					end
+				end
+			elseif flying then
+				game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = false
+			else
+				game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
+			end
+			task.wait()
+		end
+	end)
+
+	cloneref(game.Players.LocalPlayer:GetMouse()).KeyUp:Connect(function(KEYY)
+		if KEYY == ' ' then
+			holdingspace = false
+		end
+	end)
+
 	cloneref(game.Players.LocalPlayer:GetMouse()).KeyDown:Connect(function(KEYY)
 		if KEYY == ' ' then
+			holdingspace = true
+			if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Sit then
+				if already2 then
+					if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Sit then
+						game.Players.LocalPlayer.Character.Humanoid.Sit = false
+					end
+				else
+					already2 = true
+					local st = tick()
+					while tick() - st < 0.4 and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Sit do task.wait() end
+					already2 = false
+				end
+			end
+		end
+	end)
+
+	local uppies = false
+	local downies = false
+	local Up
+	local Down
+
+	cloneref(game.Players.LocalPlayer:GetMouse()).KeyDown:Connect(function(KEYY)
+		if KEYY == 'y' then
+			flying = not flying
+			if flying then
+				already = false
+				if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+					local Float = Instance.new('Part')
+					Float.Name = 'CreativeFlyPart'
+					Float.Parent = game.Players.LocalPlayer.Character
+					Float.Size = Vector3.new(2,0.2,1.5)
+					Float.Anchored = true
+					Float.Transparency = 1
+					local FloatValue = 3.1
+					local Value = FloatValue + game.Players.LocalPlayer.Character.Humanoid.HipHeight
+					Float.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame - Vector3.new(0,Value,0)
+					Up = cloneref(game.Players.LocalPlayer:GetMouse()).KeyUp:Connect(function(KEY)
+						if KEY == ' ' then
+							uppies = false
+						elseif KEY == 'c' then
+							downies = false
+						end
+					end)
+					Down = cloneref(game.Players.LocalPlayer:GetMouse()).KeyDown:Connect(function(KEY)
+						if KEY == ' ' then
+							uppies = true
+						elseif KEY == 'c' then
+							downies = true
+						end
+					end)
+					local function FloatPadLoop()
+						if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild('CreativeFlyPart') and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and flying then
+							if not AKE and not APKE then
+								APT:Set(true)
+							end
+							game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS * 16 * 10
+							Float.Transparency = 1
+							FloatValue = 3.1
+							if uppies then
+								if not downies then
+									FloatValue -= 2 + (game.Players.LocalPlayer.Character.Humanoid.HipHeight * 0.75)
+									if game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" then FloatValue -= 0.35 end
+								end
+							elseif downies then
+								if not uppies then
+									FloatValue += 4
+								end
+							end
+							if game.Players.LocalPlayer.Character.Humanoid.Sit then
+								if game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent:FindFirstChild("HumanoidCreature") then
+									Float.CFrame = game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.HumanoidRootPart.CFrame - Vector3.new(0,(FloatValue * 2) + game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.HumanoidCreature.HipHeight - 4.4125,0)
+									game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.HumanoidCreature.WalkSpeed = 16 * WS * 7.5
+									Float.CanCollide = true
+								else
+									Float.CanCollide = false
+								end
+							else
+								Float.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame - Vector3.new(0,FloatValue + game.Players.LocalPlayer.Character.Humanoid.HipHeight,0)
+								Float.CanCollide = true
+							end
+						else
+							flying = false
+							FloatingFunc:Disconnect()
+							Float:Destroy()
+							Up:Disconnect()
+							Down:Disconnect()
+						end
+					end
+					FloatingFunc = game:GetService("RunService").Heartbeat:Connect(FloatPadLoop)
+				end
+			end
+		elseif KEYY == ' ' then
 			if flying then
 				if already then
-					already = false
-					flying = false
-					game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
+					if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" then
+						return
+					else
+						already = false
+						flying = false
+					end
 				else
 					already = true
 					local st = tick()
@@ -1188,21 +1340,25 @@ else
 								FloatValue = 3.1
 								if uppies then
 									if not downies then
-										FloatValue -= 2 + (game.Players.LocalPlayer.Character.Humanoid.HipHeight * 0.78947368421052631578947368421053)
+										FloatValue -= 2 + (game.Players.LocalPlayer.Character.Humanoid.HipHeight * 0.75)
+										if game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" then FloatValue -= 0.35 end
 									end
 								elseif downies then
 									if not uppies then
 										FloatValue += 4
 									end
 								end
-								Value = FloatValue + game.Players.LocalPlayer.Character.Humanoid.HipHeight
-								Float.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame - Vector3.new(0,Value,0)
 								if game.Players.LocalPlayer.Character.Humanoid.Sit then
-									Float.CanCollide = false
-									game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
+									if game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent:FindFirstChild("HumanoidCreature") then
+										Float.CFrame = game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.HumanoidRootPart.CFrame - Vector3.new(0,(FloatValue * 2) + game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.HumanoidCreature.HipHeight - 4.4125,0)
+										game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.HumanoidCreature.WalkSpeed = 16 * WS * 7.5
+										Float.CanCollide = true
+									else
+										Float.CanCollide = false
+									end
 								else
+									Float.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame - Vector3.new(0,FloatValue + game.Players.LocalPlayer.Character.Humanoid.HipHeight,0)
 									Float.CanCollide = true
-									game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = false
 								end
 							else
 								flying = false
@@ -1212,8 +1368,6 @@ else
 								Down:Disconnect()
 							end
 						end
-						game.Players.LocalPlayer.Character.Humanoid.JumpHeight = 0
-						game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = false
 						FloatingFunc = game:GetService("RunService").Heartbeat:Connect(FloatPadLoop)
 					end
 				else
@@ -1338,7 +1492,7 @@ else
 
 	APT = AS:AddToggle({
 		Name = "Penis Anti-Kick",
-		Default = false,
+		Default = true,
 		Callback = function(Value)
 			APKE = Value
 			if Value then
@@ -1451,6 +1605,53 @@ else
 					end
 				end
 			end
+		end,
+	})
+
+	local antibanana
+
+	AS:AddToggle({
+		Name = "No bananas allowed in these parts buddy old pal",
+		Default = true,
+		Callback = function(Value)
+			antibanana = Value
+			task.spawn(function()
+				while antibanana do
+					for _,plot in pairs(game.workspace.PlotItems:GetChildren()) do
+						if plot.Name ~= "PlayersInPlot" then
+							for _,model in pairs(plot:GetChildren()) do
+								if model.Name == "FoodBanana" then
+									if model:FindFirstChild("HoldPart") then
+										if model.HoldPart:FindFirstChild("HoldItemRemoteFunction") then
+											model.HoldPart.HoldItemRemoteFunction:InvokeServer(model,game:GetService("Players").LocalPlayer.Character)
+											if model.HoldPart:FindFirstChild("DropItemRemoteFunction") then
+												model.HoldPart.DropItemRemoteFunction:InvokeServer(model,CFrame.new(0,-10^40,0),Vector3.new(0,-46.05,0))
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+					for _,plr in pairs(game.Players:GetChildren()) do
+						if game.workspace:FindFirstChild(plr.Name.."SpawnedInToys") and plr ~= game.Players.LocalPlayer then
+							for _,model in pairs(game.workspace:FindFirstChild(plr.Name.."SpawnedInToys"):GetChildren()) do
+								if model.Name == "FoodBanana" then
+									if model:FindFirstChild("HoldPart") then
+										if model.HoldPart:FindFirstChild("HoldItemRemoteFunction") then
+											model.HoldPart.HoldItemRemoteFunction:InvokeServer(model,game:GetService("Players").LocalPlayer.Character)
+											if model.HoldPart:FindFirstChild("DropItemRemoteFunction") then
+												model.HoldPart.DropItemRemoteFunction:InvokeServer(model,CFrame.new(0,-10^40,0),Vector3.new(0,-46.05,0))
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+					task.wait()
+				end
+			end)
 		end,
 	})
 
@@ -2493,6 +2694,25 @@ else
 					frozenlist = {}
 				end
 			})
+			local sizer = 1
+			local agentJEW = BS:AddSlider({
+				Name = "Set Build Size",
+				Min = 0.1,
+				Max = 50,
+				Default = 1,
+				Color = Color3.fromRGB(255,255,255),
+				Increment = 0.1,
+				ValueName = "Sped Shed",
+				Callback = function(Value)
+					model:ScaleTo(Value)
+				end
+			})
+			BS:AddButton({
+				Name = "Set size to 1",
+				Callback = function()
+					agentJEW:Set(1)
+				end
+			})
 			local aa2 = BS:AddToggle({
 				Name = "Highlight Build",
 				Default = false,
@@ -2615,7 +2835,7 @@ else
 		Callback = function(Value)
 			local v1 = game:GetService("Workspace").Map.AlwaysHereTweenedObjects.Ocean.Object.ObjectModel
 			for _,prt in pairs(v1:GetChildren()) do 
-				if prt:IsA("Part") and prt.Name == "Ocean" then 
+				if prt:IsA("Part") then 
 					prt.CanCollide = Value
 				end
 			end
@@ -3382,7 +3602,7 @@ else
 
 	loaded = true
 
-	game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">Welcome to BinisJ Nigga</font>")
+	game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">[BinisJ]</font><font color=\"rgb(255, 255, 255)\"> Niggalink ONLINE bris</font>")
 
 	OrionLib:Init()
 end
