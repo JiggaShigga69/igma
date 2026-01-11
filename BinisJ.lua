@@ -1,3 +1,9 @@
+local bigboyword1
+if familyfriendly then
+	bigboyword1 = 'Dudeman'
+else
+	bigboyword1 = 'Nigga'
+end
 if workspace:FindFirstChild("Boiyoubuiltlikeanigger") and workspace.Boiyoubuiltlikeanigger.Value then
 	game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">BinisJ Already Started Nigga</font>")
 else
@@ -72,9 +78,13 @@ else
 	local buildnum = 1
 	local frozenlist = {}
 
-	function addanchitm(list,model)
+	function addanchitm(list,model,jizzybrizzy)
 		local pp1 = model:FindFirstChild("pp1")
-		for _,prt in pairs(list) do
+		for _,itm in pairs(list) do
+			local prt = itm
+			if jizzybrizzy == 0 then
+				prt = prt[1]
+			end
 			if prt and prt.Parent then
 				model:FindFirstChildWhichIsA("IntValue").Value += 1
 				if prt:FindFirstChild("somebodyshotaloadintomyburger2") then
@@ -103,6 +113,10 @@ else
 				gottheblicky2.FillTransparency = 1
 				gottheblicky2.OutlineTransparency = 1
 				gottheblicky2.FillColor = Color3.fromRGB(125,125,125)
+				print(type(dbcooper))
+				print(type(dbcooper.Parent))
+				print(type(model))
+				print(model.ClassName)
 				dbcooper.Parent = model
 				local wc = Instance.new("WeldConstraint")
 				wc.Name = 'diddyconstraint'
@@ -289,7 +303,7 @@ else
 				local aa1 = BS:AddButton({
 					Name = "Add Anchored Items To Build",
 					Callback = function()
-						addanchitm(frozenlist,model)
+						addanchitm(frozenlist,model,1)
 						local boobyjr = {}
 						for _,itm in pairs(frozenlist) do
 							local itmprt = itm:FindFirstChild("HumanoidRootPart") or itm:FindFirstChild("SoundPart")
@@ -369,12 +383,15 @@ else
 				})
 				game.ReplicatedStorage.GrabEvents.ExtendGrabLine.OnClientEvent:Connect(function(plr,arg1)
 					if type(arg1) == "table" and arg1[1] == "BinisJ" and plr ~= game.Players.LocalPlayer then
+						print(arg1[2])
 						if arg1[2] == "Set "..bn then
+							print('yo')
 							for line,itm in pairs(arg1[3]) do
 								local idontflippingknowbro = itm[1]:FindFirstChild("HumanoidRootPart") or itm[1]:FindFirstChild("SoundPart")
 								idontflippingknowbro.CFrame = pp1.CFrame * itm[2]
 							end
-							addanchitm(arg1[3],model) 
+							print('hi')
+							addanchitm(arg1[3],model,0) 
 						elseif arg1[2] == "Resize "..bn then
 							agentJEW:Set(arg1[3])
 						elseif arg1[2] == "Dismantle "..bn then
@@ -1231,7 +1248,7 @@ else
 
 	locations = {"Spawn","Prison","ChineseRoof","SpawnCave","GreenHouse","PinkHouse","Barn","BlueHouse","ChineseHouse","PurpleHouse","Factory","OtherGreenHouse","BigCave","GoodPrison","RuhubsDogAhhPrison","ExtremelyGoodPrison","TrainCave","IslandCave","UfoCave","BlueHouseSlot","SpawnSlot","HauntedSlot","RandomSlot","BeachSlot"}
 
-	local Window = OrionLib:MakeWindow({Name = "BinisJ - Nigga Edition", IntroText = "BinisJ - Nigga Edition"})
+	local Window = OrionLib:MakeWindow({Name = "BinisJ - "..bigboyword1.." Edition", IntroText = "BinisJ - "..bigboyword1.." Edition"})
 
 	local GS = Window:MakeTab({
 		Name = "Grab Stuff",
@@ -1686,7 +1703,11 @@ else
 	end)
 
 	local AS = Window:MakeTab({
-		Name = "Anti-Shit",
+		if familyfriendly then
+			Name = "Anti-Shenanigans",
+		else
+			Name = "Anti-Shit",
+		end
 		Icon = "rbxassetid://4483345998",
 	})
 
@@ -1699,14 +1720,14 @@ else
 			AGE = Value
 			if Value then
 				OrionLib:MakeNotification({
-					Name = "Anti-Grab on nigga",
+					Name = "Anti-Grab on "..bigboyword1,
 					Content = "Yobro!",
 					Image = "rbxassetid://4483345998",
 					Time = 2
 				})
 			else
 				OrionLib:MakeNotification({
-					Name = "Anti-Grab on a little bit less nigga",
+					Name = "Anti-Grab on a little bit less "..bigboyword1,
 					Content = "See you latere",
 					Image = "rbxassetid://4483345998",
 					Time = 2
@@ -3046,7 +3067,11 @@ else
 
 
 	MS:AddSection({
-		Name = "Model Shit"
+		if familyfriendly then
+			Name = "Model Stuff"
+		else
+			Name = "Model Shit"
+		end
 	})
 
 	MS:AddToggle({
@@ -3642,7 +3667,11 @@ else
 
 	loaded = true
 
-	game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">[BinisJ]</font><font color=\"rgb(255, 255, 255)\"> Niggalink ONLINE bris</font>")
+	if familyfriendly then
+		game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">[BinisJ]</font><font color=\"rgb(255, 255, 255)\"> Dudeman edition ONLINE bris</font>")
+	else
+		game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">[BinisJ]</font><font color=\"rgb(255, 255, 255)\"> Niggalink ONLINE bris</font>")
+	end
 
 	OrionLib:Init()
 end
