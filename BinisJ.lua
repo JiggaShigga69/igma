@@ -1702,12 +1702,16 @@ else
 		end
 	end)
 
+	local nimrodv2
+
+	if familyfriendly then
+		nimrodv2 = "Anti-Shenanigans"
+	else
+		nimrodv2 = "Anti-Shit"
+	end
+
 	local AS = Window:MakeTab({
-		if familyfriendly then
-			Name = "Anti-Shenanigans",
-		else
-			Name = "Anti-Shit",
-		end
+		Name = nimrodv2,
 		Icon = "rbxassetid://4483345998",
 	})
 
@@ -3066,12 +3070,17 @@ else
 	})
 
 
+	local nimrodv3
+
+	
+	if familyfriendly then
+		nimrodv3 = "Model Stuff"
+	else
+		nimrodv3 = "Model Shit"
+	end
+
 	MS:AddSection({
-		if familyfriendly then
-			Name = "Model Stuff"
-		else
-			Name = "Model Shit"
-		end
+		Name = nimrodv3
 	})
 
 	MS:AddToggle({
