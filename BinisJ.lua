@@ -1893,15 +1893,7 @@ return function(familyfriendly)
 								end
 								if prt.Name == "HumanoidRootPart" then
 									if game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("RootAttachment") then
-										task.wait()
-										task.wait()
-										task.wait()
-										task.wait()
-										task.wait()
-										task.wait()
-										task.wait()
-										task.wait()
-										task.wait()
+										task.wait(0.5)
 										task.wait()
 										if game.Players.LocalPlayer.Character then
 											if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("RootAttachment") and game.Players.LocalPlayer.Character:FindFirstChild("TruePositionPart") then
@@ -2047,30 +2039,32 @@ return function(familyfriendly)
 			Default = true,
 			Callback = function(Value)
 				VTPE = Value
-				while VTPE do
-					for _,plr in pairs(game.Players:GetPlayers()) do
-						if plr.Character then
-							if not plr.Character:FindFirstChild("TruePositionPart") then
-								local tp = Instance.new("Part")
-								tp.Parent = plr.Character
-								tp.Name = "TruePositionPart"
-								tp.Anchored = true
-								tp.CFrame = CFrame.new(0,-100,0)
-							end
-							if plr.Character:FindFirstChild("HumanoidRootPart") then
-								if plr.Character.HumanoidRootPart:FindFirstChild("RootAttachment") and plr.Character:FindFirstChild("TruePositionPart") then
-									plr.Character.HumanoidRootPart.RootAttachment.Parent = plr.Character.TruePositionPart
+				task.spawn(function()
+					while VTPE do
+						for _,plr in pairs(game.Players:GetPlayers()) do
+							if plr.Character then
+								if not plr.Character:FindFirstChild("TruePositionPart") then
+									local tp = Instance.new("Part")
+									tp.Parent = plr.Character
+									tp.Name = "TruePositionPart"
+									tp.Anchored = true
+									tp.CFrame = CFrame.new(0,-100,0)
 								end
-								for _,prt in pairs(plr.Character:GetChildren()) do
-									if prt:IsA("BasePart") then
-										prt.Massless = false
+								if plr.Character:FindFirstChild("HumanoidRootPart") then
+									if plr.Character.HumanoidRootPart:FindFirstChild("RootAttachment") and plr.Character:FindFirstChild("TruePositionPart") then
+										plr.Character.HumanoidRootPart.RootAttachment.Parent = plr.Character.TruePositionPart
+									end
+									for _,prt in pairs(plr.Character:GetChildren()) do
+										if prt:IsA("BasePart") then
+											prt.Massless = false
+										end
 									end
 								end
 							end
 						end
+						task.wait()
 					end
-					task.wait()
-				end
+				end)
 				if not Value then
 					for _,plr in pairs(game.Players:GetChildren()) do
 						if plr.Character then
