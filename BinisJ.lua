@@ -1124,22 +1124,33 @@ return function(familyfriendly)
 				end
 			end
 			local ishebadornahh = false
+			strbling = ", friends with: "
 			for _,dude in badboylist do
-				if plr.UserId == dude and not game.Players.LocalPlayer:IsFriendsWith(plr.UserId) then then
+				if plr.UserId == dude then
 					ishebadornahh = true
 				end
 			end
+			local h = 0
 			for _,dude in badboyfriendslist do
-				if plr:IsFriendsWith(dude) and not game.Players.LocalPlayer:IsFriendsWith(plr.UserId) then
+				if plr:IsFriendsWith(dude) then
+					local info = game:GetService("UserService"):GetUserInfosByUserIdsAsync({dude})[1]
 					ishebadornahh = true
+					if h ~= 0 then
+						strbling += ", "
+					end
+					strbling += info.DisplayName
+					h += 1
 				end
+			end
+			if h == 0 then
+				strbling = ""
 			end
 			if ishebadornahh then
 				table.insert(joinland,plr.UserId)
 				table.insert(joinland,plr.Name)
 				table.insert(joinland,plr.DisplayName)
 				diduel = "[Warning] "..plr.DisplayName.." (@"..plr.Name..") has joined the game",
-				game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150, 0, 0)\">[Warning]"..plr.DisplayName.." (@"..plr.Name..") has joined the game</font>")
+				game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150, 0, 0)\">[Warning]"..plr.DisplayName.." (@"..plr.Name..") has joined the game"..strbling.."</font>")
 			else
 				if plr:IsFriendsWith(game:GetService("Players").LocalPlayer.UserId) then
 					if beenbefore then
@@ -1180,18 +1191,33 @@ return function(familyfriendly)
 			if plr ~= game.Players.LocalPlayer then
 				task.spawn(function()
 					local ishebadornahh = false
+					local strbling = ", friends with: "
 					for _,dude in badboylist do
-						if plr.UserId == dude and not game.Players.LocalPlayer:IsFriendsWith(plr.UserId) then then
+						if plr.UserId == dude then
 							ishebadornahh = true
 						end
 					end
+					local h = 0
 					for _,dude in badboyfriendslist do
-						if plr:IsFriendsWith(dude) and not game.Players.LocalPlayer:IsFriendsWith(plr.UserId) then
+						if plr:IsFriendsWith(dude) then
+							local info = game:GetService("UserService"):GetUserInfosByUserIdsAsync({dude})[1]
 							ishebadornahh = true
+							if h ~= 0 then
+								strbling += ", "
+							end
+							strbling += info.DisplayName
+							h += 1
 						end
+					end
+					if h == 0 then
+						strbling = ""
 					end
 					if ishebadornahh then
-						game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150, 0, 0)\">[Warning] "..plr.DisplayName.." (@"..plr.Name..") is in the game</font>")
+						table.insert(joinland,plr.UserId)
+						table.insert(joinland,plr.Name)
+						table.insert(joinland,plr.DisplayName)
+						diduel = "[Warning] "..plr.DisplayName.." (@"..plr.Name..") has joined the game",
+				game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150, 0, 0)\">[Warning]"..plr.DisplayName.." (@"..plr.Name..") has joined the game"..strbling.."</font>")
 					end
 				end)
 			end
