@@ -2120,7 +2120,9 @@ return function(familyfriendly)
 				while RDAAG do
 					while game:GetService("Players").LocalPlayer.IsHeld.Value do
 						game:GetService("ReplicatedStorage").CharacterEvents.Struggle:FireServer(plr)
-						game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+						if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+							game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+						end
 						task.wait()
 					end
 					game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
@@ -2294,11 +2296,13 @@ return function(familyfriendly)
 					end
 				end
 				if not gotsomeone and blob then
-					while blob.Parent do
-						game.ReplicatedStorage.MenuToys.DestroyToy:FireServer(blob)
-						task.wait(0.1)
+					if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent == blob then
+						game.Players.LocalPlayer.Character.Humanoid.Sit = false
 					end
-					blob = nil
+					task.wait()
+					if blob and blob:FindFirstChild("HumanoidRootPart") then
+						blob.HumanoidRootPart.CFrame = CFrame.new(-1e6,-1e6,-1e6)
+					end
 				end
 				task.wait()
 			end
@@ -3277,7 +3281,7 @@ return function(familyfriendly)
 							game.ReplicatedStorage.GrabEvents.CreateGrabLine:FireServer()
 						end
 					end
-					task.wait()
+					task.wait(1)
 				end
 			end
 		})
