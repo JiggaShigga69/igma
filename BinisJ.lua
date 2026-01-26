@@ -256,6 +256,24 @@ return function(familyfriendly)
 			end
 		end
 
+		local alag
+
+		local numbercountthingy = 0
+
+		game.ReplicatedStorage.GrabEvents.CreateGrabLine.OnClientEvent:Connect(function()
+			numbercountthingy += 1
+			if numbercountthingy > 50 then
+				alag:Set(true)
+			end
+		end)
+
+		task.spawn(function()
+			while true do
+				numbercountthingy = 0
+				task.wait()
+			end
+		end)
+
 		game.ReplicatedStorage.GrabEvents.ExtendGrabLine.OnClientEvent:Connect(function(plr,arg1)
 			if type(arg1) == "table" and arg1[1] == "BinisJ" then
 				if plr ~= game.Players.LocalPlayer then
@@ -2005,7 +2023,7 @@ return function(familyfriendly)
 			end,
 		})
 
-		AS:AddToggle({
+		alag = AS:AddToggle({
 			Name = "Anti-Lag",
 			Default = false,
 			Callback = function(Value)
