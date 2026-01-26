@@ -3285,7 +3285,7 @@ return function(familyfriendly)
 		MiS:AddSlider({
 			Name = "Line Lag Server",
 			Min = 10,
-			Max = 1000,
+			Max = 10000,
 			Default = 100,
 			Color = Color3.fromRGB(255,255,255),
 			Increment = 1,
