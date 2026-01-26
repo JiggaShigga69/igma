@@ -1741,9 +1741,11 @@ return function(familyfriendly)
 				while AGE do
 					while game:GetService("Players").LocalPlayer.IsHeld.Value do
 						game:GetService("ReplicatedStorage").CharacterEvents.Struggle:FireServer(game.Players.LocalPlayer)
-						game.ReplicatedStorage.CharacterEvents.RagdollRemote:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart,0.00000000001)
-						if game.Players.LocalPlayer.Character.Humanoid.Sit then
-							game.Players.LocalPlayer.Character.Humanoid.Sit = false
+						if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+							game.ReplicatedStorage.CharacterEvents.RagdollRemote:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart,0.00000000001)
+							if game.Players.LocalPlayer.Character.Humanoid.Sit then
+								game.Players.LocalPlayer.Character.Humanoid.Sit = false
+							end
 						end
 						task.wait()
 					end
@@ -2036,21 +2038,9 @@ return function(familyfriendly)
 			while true do
 				for _,plr in pairs(game.Players:GetPlayers()) do
 					if plr.Character then
-						if not plr.Character:FindFirstChild("TruePositionPart") then
-							local tp = Instance.new("Part")
-							tp.Parent = plr.Character
-							tp.Name = "TruePositionPart"
-							tp.Anchored = true
-							tp.CFrame = CFrame.new(0,-100,0)
-						end
-						if plr.Character:FindFirstChild("HumanoidRootPart") then
-							if plr.Character.HumanoidRootPart:FindFirstChild("RootAttachment") and plr.Character:FindFirstChild("TruePositionPart") then
-								plr.Character.HumanoidRootPart.RootAttachment.Parent = plr.Character.TruePositionPart
-							end
-							for _,prt in pairs(plr.Character:GetChildren()) do
-								if prt:IsA("BasePart") then
-									prt.Massless = false
-								end
+						for _,prt in pairs(plr.Character:GetChildren()) do
+							if prt:IsA("BasePart") then
+								prt.Massless = false
 							end
 						end
 					end
@@ -2164,9 +2154,13 @@ return function(familyfriendly)
 									continue = true
 								end
 							end
-							print(plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude)
-							if continue and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" and plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude > 5000 then
-								print(1)
+							if plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude > 10000 then
+								plr.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(0,0,0)
+							end
+							if plr.Character.HumanoidRootPart.CFrame.Position.Magnitude > 1000000 then
+								continue = false
+							end
+							if continue and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" then
 								local blob = game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent
 								local localtime = tick()
 								if (plr.Character.HumanoidRootPart.CFrame.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Position + game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity).magnitude > 30 and plr.Character.Parent == workspace then
@@ -2188,7 +2182,6 @@ return function(familyfriendly)
 									blob.BlobmanSeatAndOwnerScript.CreatureGrab:FireServer(blob.RightDetector,plr.Character.HumanoidRootPart,blob.RightDetector.RightWeld)
 								end
 							elseif continue then
-								print(2)
 								if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
 									if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart then
 										game.Players.LocalPlayer.Character.Humanoid.Sit = false
@@ -2431,7 +2424,7 @@ return function(familyfriendly)
 		function showmeyourpenis(plr,typee)
 			if not game.workspace:FindFirstChild(game.Players.LocalPlayer.Name.."SpawnedInToys"):FindFirstChild(plr.Name) then
 				if plr.Character then
-					if plr.Character.Parent.Name == "Workspace" then
+					if plr.Character and plr.Character.Parent == workspace and plr.Character:FindFirstChild("HumanoidRootPart") then
 						if typee == 1 then
 							local diddle = WaitForPenis(plr)
 							if diddle ~= "Nigga" then
