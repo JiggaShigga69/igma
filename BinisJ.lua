@@ -3258,6 +3258,42 @@ return function(familyfriendly)
 		})
 
 		MiS:AddSection({
+			Name = "Lag Server"
+		})
+
+		local LAGSE = false
+		local LAGAMM = 100
+
+		MiS:AddToggle({
+			Name = "Line Lag Server",
+			Default = false,
+			Callback = function(Value)
+				LAGSE = Value
+				while LAGSE do
+					if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Right Arm") then
+						for i=1,1000 do
+							game.ReplicatedStorage.GrabEvents.CreateGrabLine:FireServer(game.Players.LocalPlayer.Character["Right Arm"],game.Players.LocalPlayer.Character["Right Arm"].CFrame)
+						end
+					end
+					task.wait()
+				end
+			end
+		})
+
+		MiS:AddSlider({
+			Name = "Line Lag Server",
+			Min = 10,
+			Max = 1000,
+			Default = 100,
+			Color = Color3.fromRGB(255,255,255),
+			Increment = 1,
+			ValueName = "Lines",
+			Callback = function(Value)
+				LAGAMM = Value
+			end
+		})
+
+		MiS:AddSection({
 			Name = "Ownership Kick All"
 		})
 
