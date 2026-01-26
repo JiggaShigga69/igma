@@ -257,19 +257,47 @@ return function(familyfriendly)
 		end
 
 		local alag
+		local ALAGE
 
-		local numbercountthingy = 0
+		local currantlagpeoplelist = {}
+		local timeeeee = tick()
 
-		game.ReplicatedStorage.GrabEvents.CreateGrabLine.OnClientEvent:Connect(function()
-			numbercountthingy += 1
-			if numbercountthingy > 50 then
-				alag:Set(true)
+		local timesincelast = 0
+		local timesincelastlist = {}
+
+		for _,plrr in pairs(game.Players:GetPlayers()) do
+			currantlagpeoplelist[plrr.Name] = 0
+		end
+
+		game.ReplicatedStorage.GrabEvents.CreateGrabLine.OnClientEvent:Connect(function(plr,arg1,arg2)
+			if not currantlagpeoplelist[plr.Name] then
+				currantlagpeoplelist[plr.Name] = 0
+			end
+			if arg1 then
+				currantlagpeoplelist[plr.Name] += 1
+				if currantlagpeoplelist[plr.Name] > 75 then
+					print(plr.Name,currantlagpeoplelist[plr.Name])
+					if not ALAGE then
+						alag:Set(true)
+					end
+					local timeval = timesincelastlist[plr.Name]
+					if not timeval or tick() - timeval > 10 then
+						game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150, 0, 0)\">[BinisJ] "..plr.DisplayName.." (@"..plr.Name..") is lagging the server</font>")
+					end
+					timesincelast = tick()
+					timesincelastlist[plr.Name] = tick()
+					task.wait(2.5)
+					if timesincelast > 2.25 and ALAGE then
+						alag:Set(false)
+					end
+				end
 			end
 		end)
 
 		task.spawn(function()
 			while true do
-				numbercountthingy = 0
+				currantlagpeoplelist = {}
+				timeeeee = tick()
 				task.wait()
 			end
 		end)
@@ -2027,6 +2055,7 @@ return function(familyfriendly)
 			Name = "Anti-Lag",
 			Default = false,
 			Callback = function(Value)
+				ALAGE = Value
 				if Value then 
 					game:GetService("Players").LocalPlayer.PlayerScripts.CharacterAndBeamMove.Disabled = true
 					for _,plr in pairs(game:GetService("Players"):GetChildren()) do
