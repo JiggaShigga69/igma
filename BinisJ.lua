@@ -275,8 +275,7 @@ return function(familyfriendly)
 			end
 			if arg1 then
 				currantlagpeoplelist[plr.Name] += 1
-				if currantlagpeoplelist[plr.Name] > 75 then
-					print(plr.Name,currantlagpeoplelist[plr.Name])
+				if currantlagpeoplelist[plr.Name] > 50 then
 					if not ALAGE then
 						alag:Set(true)
 					end
