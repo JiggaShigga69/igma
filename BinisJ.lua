@@ -2044,7 +2044,7 @@ return function(familyfriendly)
 
 		AS:AddToggle({
 			Name = "View True Position",
-			Default = false,
+			Default = true,
 			Callback = function(Value)
 				VTPE = Value
 				while VTPE do
@@ -2062,7 +2062,7 @@ return function(familyfriendly)
 									plr.Character.HumanoidRootPart.RootAttachment.Parent = plr.Character.TruePositionPart
 								end
 								for _,prt in pairs(plr.Character:GetChildren()) do
-									if prt:IsA("BasePart") and prt.Name ~= "HumanoidRootPart" then
+									if prt:IsA("BasePart") then
 										prt.Massless = false
 									end
 								end
@@ -2182,9 +2182,6 @@ return function(familyfriendly)
 							gotsomeone = true
 							continue = false
 							if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
-								if plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude > 5000 then
-									continue = false
-								end
 								if plr.Character.HumanoidRootPart.Massless then
 									if plr.Character.Humanoid.SeatPart then
 										continue = true
@@ -2193,7 +2190,7 @@ return function(familyfriendly)
 									continue = true
 								end
 							end
-							if continue and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" then
+							if continue and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" and plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude < 5000 then
 								local blob = game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent
 								local localtime = tick()
 								if (plr.Character.HumanoidRootPart.CFrame.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Position + game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity).magnitude > 30 and plr.Character.Parent == workspace then
