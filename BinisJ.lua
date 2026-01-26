@@ -899,7 +899,7 @@ return function(familyfriendly)
 		local OTPList = {}
 		local BlobkickList = {"BarnoDDino","ay3vx"}
 		local badboyfriendslist = {8790892084,9584241219,3478752556,2949841304,3478752556}
-		local badboylist = {8790892084,8514316442,9584241219,4747895524,2331338191,3478752556,2949841304,2975941060,3252968165,440734350,4282836113}
+		local badboylist = {8790892084,8514316442,9584241219,4747895524,2331338191,3478752556,2949841304,2975941060,3252968165,440734350}
 		local LocList = {}
 		local LoopKillList = {}
 		local AKList = {}
@@ -1125,7 +1125,7 @@ return function(familyfriendly)
 			end
 			local ishebadornahh = false
 			for _,dude in badboylist do
-				if plr.UserId == dude then
+				if plr.UserId == dude and not game.Players.LocalPlayer:IsFriendsWith(plr.UserId) then then
 					ishebadornahh = true
 				end
 			end
@@ -1181,7 +1181,7 @@ return function(familyfriendly)
 				task.spawn(function()
 					local ishebadornahh = false
 					for _,dude in badboylist do
-						if plr.UserId == dude then
+						if plr.UserId == dude and not game.Players.LocalPlayer:IsFriendsWith(plr.UserId) then then
 							ishebadornahh = true
 						end
 					end
