@@ -273,7 +273,7 @@ return function(familyfriendly)
 			if not currantlagpeoplelist[plr.Name] then
 				currantlagpeoplelist[plr.Name] = 0
 			end
-			if arg1 then
+			if arg1 and plr ~= game.Players.LocalPlayer then
 				currantlagpeoplelist[plr.Name] += 1
 				if currantlagpeoplelist[plr.Name] > 50 then
 					if not ALAGE then
@@ -282,11 +282,11 @@ return function(familyfriendly)
 					local timeval = timesincelastlist[plr.Name]
 					if not timeval or tick() - timeval > 10 then
 						game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150, 0, 0)\">[BinisJ] "..plr.DisplayName.." (@"..plr.Name..") is lagging the server</font>")
+						timesincelastlist[plr.Name] = tick()
 					end
 					timesincelast = tick()
-					timesincelastlist[plr.Name] = tick()
 					task.wait(2.5)
-					if timesincelast > 2.25 and ALAGE then
+					if tick() - timesincelast > 2.25 and ALAGE then
 						alag:Set(false)
 					end
 				end
@@ -3270,9 +3270,11 @@ return function(familyfriendly)
 			Callback = function(Value)
 				LAGSE = Value
 				while LAGSE do
-					if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Right Arm") then
-						for i=1,1000 do
-							game.ReplicatedStorage.GrabEvents.CreateGrabLine:FireServer(game.Players.LocalPlayer.Character["Right Arm"],game.Players.LocalPlayer.Character["Right Arm"].CFrame)
+					if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Head") then
+						local myhead = game.Players.LocalPlayer.Character.Head
+						for i=1,LAGAMM do
+							game.ReplicatedStorage.GrabEvents.CreateGrabLine:FireServer(myhead,myhead.CFrame)
+							game.ReplicatedStorage.GrabEvents.CreateGrabLine:FireServer()
 						end
 					end
 					task.wait()
