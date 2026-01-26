@@ -2164,8 +2164,9 @@ return function(familyfriendly)
 									continue = true
 								end
 							end
-							if plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude > 5000 then print ('yes') else print('no') end
+							print(plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude)
 							if continue and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" and plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude > 5000 then
+								print(1)
 								local blob = game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent
 								local localtime = tick()
 								if (plr.Character.HumanoidRootPart.CFrame.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Position + game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity).magnitude > 30 and plr.Character.Parent == workspace then
@@ -2187,6 +2188,7 @@ return function(familyfriendly)
 									blob.BlobmanSeatAndOwnerScript.CreatureGrab:FireServer(blob.RightDetector,plr.Character.HumanoidRootPart,blob.RightDetector.RightWeld)
 								end
 							elseif continue then
+								print(2)
 								if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
 									if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart then
 										game.Players.LocalPlayer.Character.Humanoid.Sit = false
