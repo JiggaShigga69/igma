@@ -2032,52 +2032,32 @@ return function(familyfriendly)
 			end    
 		})
 
-		local VTPE = false
-
-		AS:AddToggle({
-			Name = "View True Position",
-			Default = true,
-			Callback = function(Value)
-				VTPE = Value
-				task.spawn(function()
-					while VTPE do
-						for _,plr in pairs(game.Players:GetPlayers()) do
-							if plr.Character then
-								if not plr.Character:FindFirstChild("TruePositionPart") then
-									local tp = Instance.new("Part")
-									tp.Parent = plr.Character
-									tp.Name = "TruePositionPart"
-									tp.Anchored = true
-									tp.CFrame = CFrame.new(0,-100,0)
-								end
-								if plr.Character:FindFirstChild("HumanoidRootPart") then
-									if plr.Character.HumanoidRootPart:FindFirstChild("RootAttachment") and plr.Character:FindFirstChild("TruePositionPart") then
-										plr.Character.HumanoidRootPart.RootAttachment.Parent = plr.Character.TruePositionPart
-									end
-									for _,prt in pairs(plr.Character:GetChildren()) do
-										if prt:IsA("BasePart") then
-											prt.Massless = false
-										end
-									end
-								end
-							end
+		task.spawn(function()
+			while true do
+				for _,plr in pairs(game.Players:GetPlayers()) do
+					if plr.Character then
+						if not plr.Character:FindFirstChild("TruePositionPart") then
+							local tp = Instance.new("Part")
+							tp.Parent = plr.Character
+							tp.Name = "TruePositionPart"
+							tp.Anchored = true
+							tp.CFrame = CFrame.new(0,-100,0)
 						end
-						task.wait()
-					end
-				end)
-				if not Value then
-					for _,plr in pairs(game.Players:GetChildren()) do
-						if plr.Character then
-							if plr.Character:FindFirstChild("TruePositionPart") and plr.Character:FindFirstChild("HumanoidRootPart") then
-								if plr.Character.TruePositionPart:FindFirstChild("RootAttachment") then
-									plr.Character.TruePositionPart.RootAttachment.Parent = plr.Character.HumanoidRootPart
+						if plr.Character:FindFirstChild("HumanoidRootPart") then
+							if plr.Character.HumanoidRootPart:FindFirstChild("RootAttachment") and plr.Character:FindFirstChild("TruePositionPart") then
+								plr.Character.HumanoidRootPart.RootAttachment.Parent = plr.Character.TruePositionPart
+							end
+							for _,prt in pairs(plr.Character:GetChildren()) do
+								if prt:IsA("BasePart") then
+									prt.Massless = false
 								end
 							end
 						end
 					end
 				end
-			end,
-		})
+				task.wait()
+			end
+		end)
 
 		local RDAAG = false
 
