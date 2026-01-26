@@ -2164,6 +2164,7 @@ return function(familyfriendly)
 									continue = true
 								end
 							end
+							if plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude > 5000 then print ('yes') else print('no') end
 							if continue and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" and plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude > 5000 then
 								local blob = game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent
 								local localtime = tick()
