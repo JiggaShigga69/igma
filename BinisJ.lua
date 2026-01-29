@@ -320,6 +320,9 @@ return function(familyfriendly)
 							plr.BinisJ.BJValue.Value = true
 						end
 					end
+					if arg1[2] == "BjWho?" then
+						game.ReplicatedStorage.GrabEvents.ExtendGrabLine:FireServer({"BinisJ","NotStarting"})
+					end
 					if arg1[2] == "NotStarting" then
 						if not plr.BinisJ.BJValue.Value then
 							game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">[BinisJ] "..plr.DisplayName.." (@"..plr.Name..") is a good boy</font>")
@@ -927,8 +930,6 @@ return function(familyfriendly)
 
 		local OTPList = {}
 		local BlobkickList = {"BarnoDDino","ay3vx"}
-		local badboyfriendslist = {8790892084,9584241219,3478752556,2949841304,3478752556}
-		local badboylist = {8790892084,8514316442,9584241219,4747895524,2331338191,3478752556,2949841304,2975941060,3252968165,440734350}
 		local LocList = {}
 		local LoopKillList = {}
 		local AKList = {}
@@ -1152,63 +1153,31 @@ return function(familyfriendly)
 					beenbefore = true
 				end
 			end
-			local ishebadornahh = false
-			strbling = ", friends with: "
-			local dingdong = ""
-			for _,dude in badboylist do
-				if plr.UserId == dude then
-					ishebadornahh = true
-					dingdong = "is an egg and "
-				end
-			end
-			local h = 0
-			for _,dude in badboyfriendslist do
-				if plr:IsFriendsWith(dude) then
-					local info = game:GetService("UserService"):GetUserInfosByUserIdsAsync({dude})[1]
-					ishebadornahh = true
-					if h ~= 0 then
-						strbling = strbling..", "
-					end
-					strbling = strbling..info.DisplayName
-					h += 1
-				end
-			end
-			if h == 0 then
-				strbling = ""
-			end
-			if ishebadornahh then
-				table.insert(joinland,plr.UserId)
-				table.insert(joinland,plr.Name)
-				table.insert(joinland,plr.DisplayName)
-				diduel = "[Warning] "..plr.DisplayName.." (@"..plr.Name..") has joined the game",
-				game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150, 0, 0)\">[Warning] "..plr.DisplayName.." (@"..plr.Name..") "..dingdong.."has joined the game"..strbling.."</font>")
-			else
-				if plr:IsFriendsWith(game:GetService("Players").LocalPlayer.UserId) then
-					if beenbefore then
-						diduel = "Your friend "..plr.DisplayName.." (@"..plr.Name..") has rejoined",
-						game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150,150,150)\">"..plr.DisplayName.." (@"..plr.Name..") has rejoined</font>")
-					else
-						table.insert(joinland,plr.UserId)
-						table.insert(joinland,plr.Name)
-						table.insert(joinland,plr.DisplayName)
-						diduel = plr.DisplayName.." (@"..plr.Name..") has joined the game",
-						game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150,150,150)\">Your friend "..plr.DisplayName.." (@"..plr.Name..") has joined the game</font>")
-					end	
-				elseif kickedbefore then
-					diduel = plr.DisplayName.." (@"..plr.Name..") has rejoined",
-					game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255,0,0)\">"..plr.DisplayName.." (@"..plr.Name..") has rejoined</font>")
+			if plr:IsFriendsWith(game:GetService("Players").LocalPlayer.UserId) then
+				if beenbefore then
+					diduel = "Your friend "..plr.DisplayName.." (@"..plr.Name..") has rejoined",
+					game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150,150,150)\">"..plr.DisplayName.." (@"..plr.Name..") has rejoined</font>")
 				else
-					if beenbefore then
-						diduel = plr.DisplayName.." (@"..plr.Name..") has rejoined",
-						game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150,150,150)\">"..plr.DisplayName.." (@"..plr.Name..") has rejoined</font>")
-					else
-						table.insert(joinland,plr.UserId)
-						table.insert(joinland,plr.Name)
-						table.insert(joinland,plr.DisplayName)
-						diduel = plr.DisplayName.." (@"..plr.Name..") has joined the game",
-						game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150,150,150)\">"..plr.DisplayName.." (@"..plr.Name..") has joined the game</font>")
-					end	
-				end
+					table.insert(joinland,plr.UserId)
+					table.insert(joinland,plr.Name)
+					table.insert(joinland,plr.DisplayName)
+					diduel = plr.DisplayName.." (@"..plr.Name..") has joined the game",
+					game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150,150,150)\">Your friend "..plr.DisplayName.." (@"..plr.Name..") has joined the game</font>")
+				end	
+			elseif kickedbefore then
+				diduel = plr.DisplayName.." (@"..plr.Name..") has rejoined",
+				game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255,0,0)\">"..plr.DisplayName.." (@"..plr.Name..") has rejoined</font>")
+			else
+				if beenbefore then
+					diduel = plr.DisplayName.." (@"..plr.Name..") has rejoined",
+					game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150,150,150)\">"..plr.DisplayName.." (@"..plr.Name..") has rejoined</font>")
+				else
+					table.insert(joinland,plr.UserId)
+					table.insert(joinland,plr.Name)
+					table.insert(joinland,plr.DisplayName)
+					diduel = plr.DisplayName.." (@"..plr.Name..") has joined the game",
+					game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150,150,150)\">"..plr.DisplayName.." (@"..plr.Name..") has joined the game</font>")
+				end	
 			end
 			OrionLib:MakeNotification({
 				Name = "Join Logger",
@@ -1219,41 +1188,6 @@ return function(familyfriendly)
 		end)
 
 		for _,plr in pairs(game.Players:GetPlayers()) do
-			if plr ~= game.Players.LocalPlayer then
-				task.spawn(function()
-					local ishebadornahh = false
-					local strbling = ", friends with: "
-					local dingdong = ""
-					for _,dude in badboylist do
-						if plr.UserId == dude then
-							ishebadornahh = true
-							dingdong = "is an egg and "
-						end
-					end
-					local h = 0
-					for _,dude in badboyfriendslist do
-						if plr:IsFriendsWith(dude) or math.random(0,100) < 10 then
-							local info = game:GetService("UserService"):GetUserInfosByUserIdsAsync({dude})[1]
-							ishebadornahh = true
-							if h ~= 0 then
-								strbling = strbling..", "
-							end
-							strbling = strbling..info.DisplayName
-							h += 1
-						end
-					end
-					if h == 0 then
-						strbling = ""
-					end
-					if ishebadornahh then
-						table.insert(joinland,plr.UserId)
-						table.insert(joinland,plr.Name)
-						table.insert(joinland,plr.DisplayName)
-						diduel = "[Warning] "..plr.DisplayName.." (@"..plr.Name..") has joined the game",
-						game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(150, 0, 0)\">[Warning] "..plr.DisplayName.." (@"..plr.Name..") "..dingdong.."is in the game"..strbling.."</font>")
-					end
-				end)
-			end
 			plr.CharacterAdded:Connect(function()
 				if plr ~= game.Players.LocalPlayer then
 					if plr.BinisJ.ESP.Value or ESPA then
