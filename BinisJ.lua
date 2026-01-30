@@ -270,7 +270,7 @@ return function(familyfriendly)
 		end
 
 		getgenv().gethui = function() return game.CoreGui end
-		local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/jensonhirst/Orion/main/source')))()
+		local OrionLib = loadstring(game:HttpGet(('raw.githubusercontent.com/jensonherst/Orion/refs/heads/main/source')))()
 
 		game.ReplicatedStorage.GrabEvents.CreateGrabLine.OnClientEvent:Connect(function(plr,arg1,arg2)
 			if not currantlagpeoplelist[plr.Name] then
@@ -1340,12 +1340,12 @@ return function(familyfriendly)
 		})
 
 		GS:AddSection({
-			Name = "My muscles are getting bigger!"
+			Name = "My muscles are getting nigger!"
 		})
 
 		GS:AddToggle({
 			Name = "Boi dont tussle with the muscle",
-			Default = true,
+			Default = false,
 			Callback = function(Value)
 				BMA = Value
 				if Value then
@@ -1362,7 +1362,7 @@ return function(familyfriendly)
 						end
 					end
 				else
-					game.ReplicatedFirst.GrabParts.DragPart.AlignPosition.MaxForce = 60000
+					game.ReplicatedFirst.GrabParts.DragPart.AlignPosition.MaxForce = 30000
 					game.ReplicatedFirst.GrabParts.DragPart.AlignOrientation.MaxTorque = 60000
 					if workspace:FindFirstChild("GrabParts") then
 						if workspace.GrabParts:FindFirstChild("DragPart") then
@@ -1370,7 +1370,7 @@ return function(familyfriendly)
 								workspace.GrabParts.DragPart.AlignOrientation.MaxTorque = 60000
 							end
 							if workspace.GrabParts.DragPart:FindFirstChild("AlignPosition") then
-								workspace.GrabParts.DragPart.AlignPosition.MaxForce = 60000
+								workspace.GrabParts.DragPart.AlignPosition.MaxForce = 30000
 							end
 						end
 					end
@@ -1825,14 +1825,14 @@ return function(familyfriendly)
 					while game:GetService("Players").LocalPlayer.IsHeld.Value do
 						game:GetService("ReplicatedStorage").CharacterEvents.Struggle:FireServer(game.Players.LocalPlayer)
 						if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-							game.ReplicatedStorage.CharacterEvents.RagdollRemote:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart,0.00000000001)
+							game.ReplicatedStorage.CharacterEvents.RagdollRemote:FireServer(game.Players.LocalPlayer.Character.HumanoidRootPart,1)
 							if game.Players.LocalPlayer.Character.Humanoid.Sit then
 								game.Players.LocalPlayer.Character.Humanoid.Sit = false
 							end
 						end
 						task.wait()
 					end
-					task.wait()
+					task.wait(0.2)
 				end
 			end,
 		})
@@ -1869,7 +1869,7 @@ return function(familyfriendly)
 					end
 					antifirepart.CanCollide = not antifirepart.CanCollide
 					antifirepart.CanCollide = not antifirepart.CanCollide
-					task.wait()
+					task.wait(1)
 				end
 				antifirepart.CFrame = CFrame.new(0,-15,0)
 			end,
@@ -1906,7 +1906,7 @@ return function(familyfriendly)
 
 		APT = AS:AddToggle({
 			Name = "Penis Anti-Kick",
-			Default = true,
+			Default = false,
 			Callback = function(Value)
 				APKE = Value
 				if Value then
@@ -1934,6 +1934,7 @@ return function(familyfriendly)
 				antiok = Value
 				task.spawn(function()
 					while antiok do
+						task.wait(0.5)
 						if game.Players.LocalPlayer.Character then
 							if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 								if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame.Position.Magnitude > 10000000 then
@@ -1978,7 +1979,7 @@ return function(familyfriendly)
 								end
 								if prt.Name == "HumanoidRootPart" then
 									if game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("RootAttachment") then
-										task.wait(0.5)
+										task.wait(1.5)
 										task.wait()
 										if game.Players.LocalPlayer.Character then
 											if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("RootAttachment") and game.Players.LocalPlayer.Character:FindFirstChild("TruePositionPart") then
@@ -2027,18 +2028,15 @@ return function(familyfriendly)
 							if plot.Name ~= "PlayersInPlot" then
 								for _,model in pairs(plot:GetChildren()) do
 									if model.Name == "FoodBanana" or model.Name == "PoopPileSparkle" then
-										task.spawn(function()
-											if model:FindFirstChild("HoldPart") then
-												if model.HoldPart:FindFirstChild("HoldItemRemoteFunction") then
-													task.spawn(function()
-														model.HoldPart.HoldItemRemoteFunction:InvokeServer(model,game:GetService("Players").LocalPlayer.Character)
-													end)
-													if model.HoldPart:FindFirstChild("DropItemRemoteFunction") then
-														model.HoldPart.DropItemRemoteFunction:InvokeServer(model,CFrame.new(0,-10^40,0),Vector3.new(0,-46.05,0))
-													end
+										task.wait(1)
+										if model:FindFirstChild("HoldPart") then
+											if model.HoldPart:FindFirstChild("HoldItemRemoteFunction") then
+												model.HoldPart.HoldItemRemoteFunction:InvokeServer(model,game:GetService("Players").LocalPlayer.Character)
+												if model.HoldPart:FindFirstChild("DropItemRemoteFunction") then
+													model.HoldPart.DropItemRemoteFunction:InvokeServer(model,CFrame.new(0,-10^40,0),Vector3.new(0,-46.05,0))
 												end
 											end
-										end)
+										end
 									end
 								end
 							end
@@ -2085,7 +2083,7 @@ return function(familyfriendly)
 						Time = 2
 					})
 				else
-					workspace.FallenPartsDestroyHeight = -100
+					workspace.FallenPartsDestroyHeight = -20
 					OrionLib:MakeNotification({
 						Name = "Void has been enabled",
 						Content = "Anti-Void",
@@ -2101,7 +2099,8 @@ return function(familyfriendly)
 			Default = false,
 			Callback = function(Value)
 				ALAGE = Value
-				if Value then 
+				if Value then
+					task.wait(1)
 					game:GetService("Players").LocalPlayer.PlayerScripts.CharacterAndBeamMove.Disabled = true
 					for _,plr in pairs(game:GetService("Players"):GetChildren()) do
 						if plr.Character:FindFirstChild("GrabParts") then
@@ -2192,7 +2191,7 @@ return function(familyfriendly)
 		})
 
 		function BlobKick()
-			while true do
+			while task.wait(1) do
 				local smegma = true
 				local listtype = 1
 				local gotsomeone = false
@@ -2217,10 +2216,6 @@ return function(familyfriendly)
 					end
 				end
 				for _,plrr in pairs(listtt) do
-					if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-						j = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-						h = game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity
-					end
 					if smegma and game.Players:FindFirstChild(plrr) and game.Players:FindFirstChild(plrr) ~= game.Players.LocalPlayer then
 						local continue = false
 						local plr = game.Players:FindFirstChild(plrr)
@@ -2243,29 +2238,14 @@ return function(familyfriendly)
 								end
 							end
 							gotsomeone = true
-							continue = false
-							if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
-								if plr.Character.HumanoidRootPart.Massless then
-									if plr.Character.Humanoid.SeatPart then
-										continue = true
-									end
-								else
-									continue = true
-								end
-							end
-							if plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude > 10000 then
-								plr.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(0,0,0)
-							end
-							if plr.Character.HumanoidRootPart.CFrame.Position.Magnitude > 1000000 then
-								continue = false
-							end
+							continue = true
 							if continue and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Name == "CreatureBlobman" then
 								local blob = game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent
 								local localtime = tick()
 								if (plr.Character.HumanoidRootPart.CFrame.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Position + game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity).magnitude > 30 and plr.Character.Parent == workspace then
 									game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = plr.Character:FindFirstChild("HumanoidRootPart").CFrame + (plr.Character:FindFirstChild("HumanoidRootPart").AssemblyLinearVelocity / math.pi)
 									game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = plr.Character:FindFirstChild("HumanoidRootPart").AssemblyLinearVelocity
-									task.wait(0.15)
+									task.wait(1.5)
 									if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
 										game.ReplicatedStorage.GrabEvents.SetNetworkOwner:FireServer(plr.Character.HumanoidRootPart,plr.Character.HumanoidRootPart.CFrame)
 									end
@@ -2273,7 +2253,7 @@ return function(familyfriendly)
 								local timee = tick()
 								while tick() - timee < 0.25 and plr and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") and blob:FindFirstChild("RightDetector") and blob.RightDetector:FindFirstChild("RightWeld") and blob:FindFirstChild("BlobmanSeatAndOwnerScript") and blob.BlobmanSeatAndOwnerScript:FindFirstChild("CreatureGrab") and blob:FindFirstChild("BlobmanSeatAndOwnerScript") and blob.BlobmanSeatAndOwnerScript:FindFirstChild("CreatureRelease") and continue do
 									game.ReplicatedStorage.GrabEvents.SetNetworkOwner:FireServer(plr.Character.HumanoidRootPart,plr.Character.HumanoidRootPart.CFrame)
-									task.wait(0.05)
+									task.wait(0.5)
 								end
 								if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and blob:FindFirstChild("RightDetector") and blob.RightDetector:FindFirstChild("RightWeld") and blob:FindFirstChild("BlobmanSeatAndOwnerScript") and blob.BlobmanSeatAndOwnerScript:FindFirstChild("CreatureGrab") and blob:FindFirstChild("BlobmanSeatAndOwnerScript") and blob.BlobmanSeatAndOwnerScript:FindFirstChild("CreatureRelease") then
 									game.ReplicatedStorage.GrabEvents.DestroyGrabLine:FireServer(plr.Character.HumanoidRootPart)
@@ -2290,7 +2270,7 @@ return function(familyfriendly)
 									if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid:GetState() ~= Enum.HumanoidStateType.Dead then
 										blob.VehicleSeat:Sit(game.Players.LocalPlayer.Character.Humanoid)
 									end
-									task.wait(0.1)
+									task.wait(1)
 								else
 									foundblob = false
 									blob = nil
@@ -2301,7 +2281,7 @@ return function(familyfriendly)
 										elseif itm.Name == "CreatureBlobman" then
 											while itm do
 												game.ReplicatedStorage.MenuToys.DestroyToy:FireServer(itm)
-												task.wait(0.1)
+												task.wait(10)
 											end
 										end
 									end
@@ -2323,9 +2303,6 @@ return function(familyfriendly)
 												end
 												if workspace:FindFirstChild(game.Players.LocalPlayer.Name.."SpawnedInToys"):FindFirstChild("CreatureBlobman") or workspace.PlotItems[plot]:FindFirstChild("CreatureBlobman") then
 													blob = workspace:FindFirstChild(game.Players.LocalPlayer.Name.."SpawnedInToys"):FindFirstChild("CreatureBlobman") or workspace.PlotItems[plot]:FindFirstChild("CreatureBlobman")
-												elseif game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.Parent ~= workspace and (game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Position - SL).Magnitude > 90  then
-													game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(SL)
-													game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.zero
 												end
 												if not blob then
 													task.spawn(function()
@@ -2338,21 +2315,19 @@ return function(familyfriendly)
 									end
 								end
 							end
-							task.wait(0.1)
+							task.wait(2)
 						end
-					end
-					if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = j
-						game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = h
 					end
 				end
 				if not gotsomeone and blob then
 					if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.SeatPart and game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent == blob then
 						game.Players.LocalPlayer.Character.Humanoid.Sit = false
+						task.wait()
+						game.Players.LocalPlayer.Character.Humanoid.Sit = true
 					end
 					task.wait()
 					if blob and blob:FindFirstChild("HumanoidRootPart") then
-						blob.HumanoidRootPart.CFrame = CFrame.new(-1e6,-1e6,-1e6)
+						blob.HumanoidRootPart.CFrame = CFrame.new(-359,98,357)
 					end
 				end
 				task.wait()
@@ -2362,7 +2337,7 @@ return function(familyfriendly)
 		task.spawn(BlobKick)
 
 		task.spawn(function()
-			while true do
+			while task.wait(2) do
 				for line,plr in pairs(game.Players:GetPlayers()) do
 					if (LoopKillList[plr.UserId] or LocList[plr.UserId] or OKLA or OKA) and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 						local j = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -2392,7 +2367,7 @@ return function(familyfriendly)
 								end
 							end
 							if hrp and Continue then
-								task.wait(0.3)
+								task.wait(0.84671647)
 								if plr.Character and hrp then
 									game.ReplicatedStorage.GrabEvents.SetNetworkOwner:FireServer(hrp,hrp.CFrame)
 									if OKLA then
@@ -2407,10 +2382,8 @@ return function(familyfriendly)
 												bv.P = 10000
 												bv.Position = Vector3.new(0,1e29,0)
 												bv.Parent = prt
-												task.spawn(function()
-													task.wait(1)
-													bv:Destroy()
-												end)
+												task.wait(1)
+												bv:Destroy()
 											end
 										end
 									elseif OKA then
@@ -2422,10 +2395,8 @@ return function(familyfriendly)
 												bv.P = 10000
 												bv.Position = Vector3.new(0,1e29,0)
 												bv.Parent = prt
-												task.spawn(function()
-													task.wait(1)
-													bv:Destroy()
-												end)
+												task.wait(1)
+												bv:Destroy()
 											end
 										end
 									elseif LocList[plr.UserId] then
@@ -2437,10 +2408,8 @@ return function(familyfriendly)
 												bv.P = 10000
 												bv.Position = LocList[plr.UserId]
 												bv.Parent = prt
-												task.spawn(function()
-													task.wait(1)
-													bv:Destroy()
-												end)
+												task.wait(1)
+												bv:Destroy()
 											end
 										end
 									else
@@ -2455,10 +2424,8 @@ return function(familyfriendly)
 												bv.P = 10000
 												bv.Position = Vector3.new(0,1e29,0)
 												bv.Parent = prt
-												task.spawn(function()
-													task.wait(1)
-													bv:Destroy()
-												end)
+												task.wait(1)
+												bv:Destroy()
 											end
 										end
 									end
@@ -2469,8 +2436,8 @@ return function(familyfriendly)
 							end
 						end
 						if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and bbld then
-							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = j
-							game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = p
+							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = j + Vector3.new(.6,0,.7)
+							game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = p * Vector3.new(10,10,10)
 							task.wait()
 						end
 					end
@@ -2481,9 +2448,7 @@ return function(familyfriendly)
 
 		function WaitForPenis(plr)
 			while not game.Players.LocalPlayer.CanSpawnToy.Value do task.wait() end
-			task.spawn(function()
-				game.ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer("ToolPencil",CFrame.new(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame.Position)+Vector3.new(0,0,15),Vector3.new(0,0,0))
-			end)
+			game.ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer("ToolPencil",CFrame.new(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame.Position)+Vector3.new(0,0,15),Vector3.new(0,0,0))
 
 			local diddle = game.workspace:FindFirstChild(game.Players.LocalPlayer.Name.."SpawnedInToys"):WaitForChild("ToolPencil",1)
 			
@@ -2503,9 +2468,7 @@ return function(familyfriendly)
 
 		function WaitForNinja(plr)
 			while not game.Players.LocalPlayer.CanSpawnToy.Value do task.wait() end
-			task.spawn(function()
-				game.ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer("NinjaKunai",CFrame.new(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame.Position)+Vector3.new(0,0,15),Vector3.new(0,0,0))
-			end)
+			game.ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer("NinjaKunai",CFrame.new(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame.Position)+Vector3.new(0,0,15),Vector3.new(0,0,0))
 			local diddle = game.workspace:FindFirstChild(game.Players.LocalPlayer.Name.."SpawnedInToys"):WaitForChild("NinjaKunai",1)
 			
 			if not diddle then return "Nigga" end
@@ -2519,7 +2482,6 @@ return function(familyfriendly)
 		end
 
 		function ticklepenis(diddle)
-			while not diddle:FindFirstChild("SoundPart") do task.wait() end
 			game.ReplicatedStorage.GrabEvents.SetNetworkOwner:FireServer(diddle.SoundPart,diddle.SoundPart.CFrame)
 		end
 
@@ -2551,9 +2513,9 @@ return function(familyfriendly)
 		end
 
 		function tickletipson(plr,diddle)
-			if plr.Character and plr.Character:FindFirstChild("Left Leg") then
+			if plr.Character then
 				ticklepenis(diddle)
-				task.wait(0.75)
+				task.wait(1)
 				if plr.Character and plr.Character:FindFirstChild("Left Leg") then
 					if plr.Character.Parent == workspace and diddle:FindFirstChild("StickyPart") then
 						game.ReplicatedStorage.PlayerEvents.StickyPartEvent:FireServer(diddle.StickyPart,plr.Character["Left Leg"],CFrame.new(0,-0.5,0) * CFrame.Angles(0,0,math.pi/2))
@@ -2567,7 +2529,7 @@ return function(familyfriendly)
 		function showmeyourpenis(plr,typee)
 			if not game.workspace:FindFirstChild(game.Players.LocalPlayer.Name.."SpawnedInToys"):FindFirstChild(plr.Name) then
 				if plr.Character then
-					if plr.Character and plr.Character.Parent == workspace and plr.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Parent == workspace then
+					if plr.Character.Parent == workspace and plr.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Parent == workspace then
 						if typee == 1 then
 							local diddle = WaitForPenis(plr)
 							if diddle ~= "Nigga" then
@@ -2595,6 +2557,7 @@ return function(familyfriendly)
 					end
 				end
 				for _,plr in pairs(AKList) do
+					task.wait(0.1)
 					if game.Players:FindFirstChild(plr) then
 						showmeyourpenis(game.Players:FindFirstChild(plr),2)
 					end
@@ -2627,7 +2590,7 @@ return function(familyfriendly)
 						if LoopKillList[uid] == "who you loop killin nigga" then
 							lk = true
 						elseif LocList[uid] == Vector3.new(0,1e29,0) then
-							otk = true
+							return
 						elseif LocList[uid] then
 							tpp = true
 							lTPE = true
@@ -2709,7 +2672,7 @@ return function(familyfriendly)
 				if Value and not Changing then
 					pOTP:Set(false)
 					pLK:Set(false)
-					LocList[uid] = Vector3.new(0,1e29,0)
+					LocList[uid] = Vector3.new(0,1e7,0)
 				elseif not Changing then
 					LocList[uid] = nil
 				end
@@ -2828,7 +2791,7 @@ return function(familyfriendly)
 		BS = Window:MakeTab({
 			Name = "Builds",
 			Icon = "rbxassetid://4483362458",
-			PremiumOnly = false
+			PremiumOnly = true
 		})
 
 		BS:AddSection({
@@ -3035,34 +2998,6 @@ return function(familyfriendly)
 			Name = "Edit Plots"
 		})
 
-		MS:AddToggle({
-			Name = "Plot Barrier Collision",
-			Default = false,
-			Callback = function(Value)
-				for _,prt in pairs(game:GetService("Workspace").Plots:GetDescendants()) do
-					if prt.Name == "PlotBarrier" or prt.Name == "FalseBorder" then
-						prt.CanQuery = Value
-						prt.CanCollide = Value
-					end
-				end
-				if Value then
-					OrionLib:MakeNotification({
-						Name = "Plot Barrier Collision has been enabled",
-						Content = "Plot Barrier Collision",
-						Image = "rbxassetid://4483345998",
-						Time = 2
-					})
-				else
-					OrionLib:MakeNotification({
-						Name = "Plot Barrier Collision has been disabled",
-						Content = "Plot Barrier Collision",
-						Image = "rbxassetid://4483345998",
-						Time = 2
-					})
-				end
-			end,
-		})
-
 		local GPI = false
 		local GIP = false
 		local canC = false
@@ -3090,7 +3025,7 @@ return function(familyfriendly)
 
 		MS:AddToggle({
 			Name = "Grab people in plots",
-			Default = true,
+			Default = false,
 			Callback = function(Value)
 				GIP = Value
 				if Value then
@@ -3119,7 +3054,7 @@ return function(familyfriendly)
 
 		MS:AddToggle({
 			Name = "Plot Item Collision",
-			Default = true,
+			Default = false,
 			Callback = function(Value)
 				canC = Value
 				if canC then
@@ -3336,6 +3271,9 @@ return function(familyfriendly)
 					if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Head") then
 						local myhead = game.Players.LocalPlayer.Character.Head
 						for i=1,LAGAMM do
+							for i=1,10 do
+								game.ReplicatedStorage.GrabEvents.CreateGrabLine:FireServer()
+							end
 							game.ReplicatedStorage.GrabEvents.CreateGrabLine:FireServer(myhead,myhead.CFrame)
 							game.ReplicatedStorage.GrabEvents.CreateGrabLine:FireServer()
 						end
@@ -3639,6 +3577,7 @@ return function(familyfriendly)
 					Time = 5
 				})
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
 			end    
 		})
 
@@ -3793,7 +3732,7 @@ return function(familyfriendly)
 		if familyfriendly then
 			game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">[BinisJ]</font><font color=\"rgb(255, 255, 255)\"> Dudeman edition ONLINE bris</font>")
 		else
-			game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">[BinisJ]</font><font color=\"rgb(255, 255, 255)\"> Niggalink ONLINE bris</font>")
+			game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage("<font color=\"rgb(255, 0, 255)\">[BinisJ]</font><font color=\"rgb(255, 255, 255)\"> Niggalink NONLINE bris</font>")
 		end
 
 		OrionLib:Init()
